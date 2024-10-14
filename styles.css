@@ -1,0 +1,448 @@
+/* General */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Trebuchet MS", sans-serif;
+}
+
+/* Encabezado */
+.main-nav {
+    height: 70px; /* Altura del encabezado */
+    display: flex;
+    justify-content: center; /* Centra todos los elementos en el contenedor */
+    align-items: center;
+    background-color: #bcb2c4;
+    padding: 10px 20px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1; /* Agrega este línea */
+    position: relative; /* Requerido para z-index */
+    border-bottom: 1px #473243; /* Agrega este línea */
+}
+
+.logo {
+    position: absolute; /* Mantiene el logo en la esquina */
+    left: 20px; /* Ajusta la posición del logo */
+}
+
+.logo img {
+    max-height: 50px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links li {
+    margin: 0 20px; /* Espacio igual a la izquierda y derecha */
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #473243; /* Cambia a este color para los enlaces */
+    font-size: 20px; /* Aumenta el tamaño de la fuente */
+    font-family: "Trebuchet MS", sans-serif; /* Aplicar la fuente */
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
+/* Estilos para los enlaces activos y visitados */
+.nav-links a:visited,
+.nav-links a:active,
+.nav-links a.active { /* Agrega esta línea */
+    font-weight: normal; /* Mantiene el peso de la fuente normal */
+    color: #473243; /* Mantiene el color consistente */
+}
+
+/* Estilos del carrusel */
+.carousel {
+    position: relative;
+    width: 100%;
+    height: 700px; /* Ocupa toda la altura de la pantalla */
+    display: flex;
+  }
+  
+  .carousel-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 700px;
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+  
+  .carousel-image.active {
+    opacity: 1;
+  }
+
+/* Flechas de navegación */
+div.arrow {
+    width: 6vmin;
+    height: 6vmin;
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    
+    &::before {
+      content: '';
+      width: 100%;
+      height: 100%;
+      border-width: .8vmin .8vmin 0 0;
+      border-style: solid;
+      border-color: #c2c2c2;
+      transition: .2s ease;
+      display: block;
+      transform-origin: 100% 0;
+    }
+  
+    &:after {
+      content: '';
+      float: left;
+      position: relative;
+      top: -100%;
+      width: 100%;
+      height: 100%;
+      border-width: 0 .8vmin 0 0;
+      border-style: solid;
+      border-color: #c2c2c2;
+      transform-origin: 100% 0;
+      transition:.2s ease;
+    }
+    
+    &:hover::after {
+      transform: rotate(45deg);
+      border-color: #473243;
+      height: 120%;
+    }
+    &:hover::before {
+      border-color: #473243;
+      transform: scale(.8);
+    }
+  }
+  
+  .arrow-left {
+    left: 5% !important;
+    transform: translateY(-50%) rotate(-135deg) !important;
+  }
+  
+  .arrow-right {
+    right: 5% !important;
+    transform: translateY(-50%) rotate(45deg) !important;
+  }
+
+  .arrow-left:hover, 
+.arrow-right:hover {
+  cursor: pointer;
+}
+
+/* Puntos indicadores */
+.carousel-indicators {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+  }
+  
+  .indicator {
+    width: 15px;
+    height: 15px;
+    background-color: #473243;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .indicator.active {
+    background-color: #bcb2c4;
+    width: 20px;
+    height: 20px;
+  }
+
+/* Sección Instagram */
+.instagram-section {
+    background-color: #4c2f4c; /* Fondo cambiado al color especificado */
+    padding: 40px;
+    text-align: left; /* Alinear el texto a la izquierda */
+}
+
+.instagram-section h2 {
+    color: #cec6c6;
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 50px;
+    font-weight: 100;
+    margin-bottom: 30px;
+    transition: all 0.3s ease; /* Transición suave */
+  }
+  
+  .instagram-section h2:hover {
+    text-decoration: underline; /* Subrayado en hover */
+  }
+
+.instagram-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 30px; /* Aumenta el espacio entre las imágenes */
+}
+
+.instagram-item img {
+    width: 100%;
+    height: auto;
+}
+
+/* Estilos del footer */
+footer {
+    background-color: #bcb2c4;
+    padding: 20px 0;
+    text-align: center;
+  }
+  
+  .instagram-handle {
+    color: #473243;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .social-icon {
+    color: #4c2f4c;
+    font-size: 24px;
+    margin: 10px;
+  }
+  
+  .social-icon:hover {
+    color: #6c3f6c;
+    transform: scale(1.1);
+  }
+  
+/* Estilo para el body en la página de ingreso */
+body.ingreso {
+  background-color: #ebe8ed; /* Color de fondo */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+body.ingreso main {
+  flex-grow: 1;
+  margin-bottom: 20px; /* Agrega 20px de margen abajo */
+}
+
+body.ingreso footer {
+  margin-top: auto;
+}
+
+/* Sección Ingreso */
+#rutForm {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+#rutSection {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.ingreso-content {
+    max-width: 800px;
+    margin: 2rem auto;
+    background-color: #ffffff; /* Color de fondo específico para esta sección */
+    border-radius: 8px; /* Esquinas redondeadas (opcional) */
+}
+
+#extraFieldsSection {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#extraFieldsForm {
+  background-color: #ffffff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+#deliverySection {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#deliveryForm {
+  background-color: #ffffff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+#domicilioFields label {
+  display: block;
+  margin-top: 10px; /* Agrega 10px de margen abajo */
+}
+
+#resumenSection {
+  background-color: #ffffff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 20px;
+}
+
+/* Estilo para los campos de entrada */
+input[type="text"], 
+select {
+    background-color: #ffffff; /* Color de fondo de los campos */
+    border: 1px solid #cccccc; /* Color del borde */
+    color: #473243; /* Color del texto */
+    padding: 3px; /* Espaciado interno */
+    border-radius: 5px; /* Esquinas redondeadas (opcional) */
+    font-family: "Trebuchet MS", sans-serif; /* Fuente */
+    font-size: 16px; /* Tamaño de fuente (ajusta según sea necesario) */
+}
+
+/* Estilo para el texto de los errores */
+.error {
+    color: red; /* Color para el texto de error */
+}
+
+.form-ingreso, .form-direccion {
+    padding: 2rem;
+    border-radius: 8px;
+    border-color: #8A3D5F;
+    box-shadow: 0 2px 4px rgba(155, 135, 147, 0.1);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.form-group input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+
+.input-prefix {
+  position: relative;
+}
+
+.input-prefix span {
+  position: absolute;
+  left: 10px;
+  top: 12px;
+  font-size: 16px;
+  color: #333;
+  pointer-events: none;
+}
+
+.input-prefix input {
+  padding-left: 40px;
+}
+
+button[type="submit"] {
+    background-color: #DECEDF;
+    color: #000;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #c0a2c7;
+}
+
+button[type="button"] {
+    background-color: #DECEDF;
+    color: #000;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+button[type="button"]:hover {
+    background-color: #c0a2c7;
+}
+
+#rutError {
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+input.error {
+  border: 2px solid red;
+}
+
+.error {
+    color: red;
+    font-size: 0.9em;
+}
+
+.social-icon:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s;
+}
+
+.confirmacion-content {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: "Trebuchet MS", sans-serif;
+}
+
+/* Contenedor de los botones: Alineación con Flexbox */
+.botones-navegacion {
+  display: flex;
+  justify-content: space-between; /* Distribuye los botones en los extremos */
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* Estilo para los botones */
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #DECEDF;
+  color: #000;
+  font-weight: bold;
+  font-family: "Trebuchet MS", sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #c0a2c7;
+}
