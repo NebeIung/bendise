@@ -26,7 +26,7 @@
 }
 
 .logo img {
-    max-height: 30px;
+    max-height: 50px;
 }
 
 /* Estilo por defecto para nav-links */
@@ -496,6 +496,11 @@ button:hover {
   .hamburger {
       display: block; /* Visible en móviles */
   }
+
+  .logo img {
+    max-height: 30px;
+}
+
 
   .main-nav {
       height: 60px;
