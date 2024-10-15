@@ -1,3 +1,9 @@
+const hamburgerMenu = document.getElementById("hamburger-menu");
+const navLinks = document.getElementById("nav-links");
+
+hamburgerMenu.addEventListener("click", () => {
+    document.body.classList.toggle("show-nav");
+});
 // Comunas por región
 const comunasPorRegion = {
     "Región Metropolitana de Santiago": [
@@ -486,6 +492,318 @@ const comunasPorRegion = {
     ]
 };
 
+const sucursales = [
+    "10 DE JULIO",
+    "ABDON CIFUENTES",
+    "AGUSTINAS",
+    "Alamparte",
+    "ALGARROBO",
+    "ALTO HOSPICIO",
+    "ALTO LAS CONDES",
+    "ANCUD",
+    "ANGOL",
+    "ANTOFAGASTA CENTRAL ENCARGOS",
+    "ANTOFAGASTA LATORRE",
+    "ARAUCO CARGA",
+    "ARICA CENTRAL DE CARGA",
+    "AVENIDA LAS CONDES",
+    "BELLAVISTA",
+    "BICENTENARIO",
+    "BODEGA SAN FRANCISCO",
+    "Boulevard del valle - San Pedro de la Paz",
+    "BUENAVENTURA",
+    "BUIN",
+    "BULNES",
+    "BUSTAMANTE",
+    "CABILDO",
+    "CABRERO",
+    "CALAMA CENTRAL CARGA",
+    "CALAMA TERMINAL",
+    "CALBUCO",
+    "CALDERA CENTRO",
+    "CANTAGALLO",
+    "CAÑETE",
+    "CARAHUE",
+    "CASABLANCA CARGA",
+    "CASTRO",
+    "CAUQUENES",
+    "C&C Mall Plaza Egaña",
+    "C&C Mall Plaza Norte",
+    "C&C Mall Plaza Vespucio",
+    "CENTRO DISTRIBUCION SAN BERNARDO",
+    "CERRILLOS",
+    "CHACABUCO",
+    "CHANARAL",
+    "Chicureo",
+    "CHICUREO",
+    "CHIGUAYANTE",
+    "CHILLAN CENTRAL CARGA",
+    "CHILLAN SANTA ISABEL",
+    "CIENFUEGOS",
+    "CIUDAD EMPRESARIAL",
+    "CLAVERO",
+    "COELEMU",
+    "CÓLINA",
+    "COLLIPULLI",
+    "CON CON CARGA",
+    "CONARIPE",
+    "CONCEPCION CAMILO HENRIQUEZ",
+    "CONCEPCION SAN PEDRO DE LA PAZ",
+    "CONCEPCION SOTOMAYOR",
+    "CONCEPCION TUCAPEL",
+    "CONSTITUCION",
+    "COPIAPO CARGA",
+    "COPIAPO LOS CARRERA",
+    "COQUIMBO ARENAS",
+    "COQUIMBO CENTRAL ENCARGOS",
+    "COQUIMBO TERMINAL",
+    "CORONEL",
+    "COYHAIQUE",
+    "CUNCO",
+    "CURACAUTIN",
+    "CURACAVI",
+    "CURANILAHUE",
+    "CURAUMA",
+    "CURICO AGUAS NEGRAS",
+    "CURICO ALAMEDA",
+    "CUSTODIA CARGA",
+    "DIEGO DE ALMAGRO",
+    "EINSTEIN",
+    "EL BOSQUE",
+    "EL CARMEN",
+    "EL CARMEN",
+    "EL GOLF",
+    "EL QUISCO",
+    "EL QUISCO CENTRO",
+    "EL ROSAL",
+    "EL SALVADOR",
+    "ENEA",
+    "ERCILLA",
+    "ESCUELA MILITAR",
+    "EXPOSICION",
+    "FRANKLIN",
+    "FREIRE",
+    "FRESIA",
+    "FRUTILLAR",
+    "FUTRONO",
+    "GABRIELA ORIENTE",
+    "GALVARINO",
+    "GORBEA",
+    "GRAN AVENIDA",
+    "GRANEROS",
+    "GRANEROS",
+    "HUALPEN",
+    "HUASCO",
+    "HUB LAS CONDES",
+    "HUB PLACILLA",
+    "ILLAPEL",
+    "INDEPENDENCIA",
+    "IQUIQUE BARROS ARANAS",
+    "IQUIQUE CENTRAL ENCARGOS",
+    "IQUIQUE ESMERALDA",
+    "IQUIQUE LOS HEROES",
+    "IQUIQUE ZOFRI",
+    "JOTABECHE",
+    "JUAN MOYA",
+    "LA CALERA",
+    "LA CALERA CAMILO HENRIQUEZ",
+    "LA CALERA CENTRO",
+    "LA CISTERNA",
+    "LA DEHESA",
+    "LA FLORIDA",
+    "LA LIGUA",
+    "LA REINA",
+    "LA SERENA BALMACEDA",
+    "LA SERENA TERMINAL",
+    "LA UNION",
+    "LABRANZA",
+    "LAGO RANCO",
+    "LAJA",
+    "LANCO LIBERTAD",
+    "LAUTARO",
+    "LEBU ENCOMIENDAS",
+    "LICAN RAY",
+    "LIMACHE CARGA",
+    "LINARES",
+    "LITUECHE",
+    "LLAY LLAY",
+    "LLOLLEO AV CHILE",
+    "LO ECHEVERS",
+    "LO PRADO",
+    "LOMAS COLORADAS",
+    "LOMAS DE SAN SEBASTIÁN",
+    "LONCOCHE",
+    "LONCOCHE CARGA",
+    "LONQUIMAY",
+    "LOS ALAMOS",
+    "LOS ANDES",
+    "LOS ANDES SANTA TERESA",
+    "LOS ANGELES CENTRAL DE CARGA",
+    "LOS ANGELES CENTRO",
+    "LOS ANGELES PASEO",
+    "LOS LAGOS",
+    "LOS VILOS CENTRO",
+    "LOTA",
+    "MACHALI",
+    "MACUL",
+    "MAIPU BELARMINO OSORIO",
+    "MANQUEHUE",
+    "MANUEL MONTT",
+    "MAPOCHO",
+    "MARIA ELENA",
+    "MATTA",
+    "MEJILLONES",
+    "Melipilla",
+    "Midmall",
+    "MINI HUB CAUQUENES",
+    "MOLINA",
+    "MONEDA",
+    "MORANDE",
+    "MULCHEN",
+    "NACIMIENTO TERMINAL",
+    "NUEVA IMPERIAL",
+    "ÑUBLE",
+    "ÑUÑOA LOS ALERCES",
+    "OCHAGAVIA",
+    "OSORNO CENTRAL DE CARGA",
+    "OSORNO RAHUE",
+    "OSORNO SEBASTAPOL",
+    "OSSA",
+    "OVALLE",
+    "PADRE HURTADO",
+    "PADRE LAS CASAS",
+    "PAILLACO",
+    "PAJARITOS",
+    "PANGUIPULLI",
+    "PAPUDO",
+    "PARRAL CARGA",
+    "PATIO EUCALIPTUS",
+    "PATIO QUILICURA",
+    "PATRONATO",
+    "Pedro Fontova",
+    "PENCO",
+    "PEÑAFLOR",
+    "PEÑALOLEN",
+    "PETORCA",
+    "Pichilemu",
+    "PITRUFQUEN",
+    "PLAZA RENCA",
+    "PORTUGAL",
+    "PORVENIR",
+    "POZO ALMONTE ENCARGOS",
+    "PROVIDENCIA",
+    "prueba",
+    "PUCON",
+    "PUDAHUEL",
+    "PUENTE ALTO ELISA CORREA",
+    "PUENTE ALTO LAS MERCEDES",
+    "PUERTO AYSEN",
+    "PUERTO MONTT ALCALDE",
+    "PUERTO MONTT ALERCE",
+    "PUERTO MONTT ENCOMIENDAS",
+    "PUERTO MONTT TENIENTE",
+    "PUERTO NATALES",
+    "PUERTO SAAVEDRA",
+    "PUERTO VARAS ENCOMIENDAS",
+    "PUNTA ARENAS",
+    "PUNTA ARENAS UNIMARC",
+    "PUREN",
+    "PURRANQUE",
+    "QUELLON",
+    "QUILICURA",
+    "QUILIN",
+    "QUILLON",
+    "QUILLOTA",
+    "QUILLOTA SENDERO",
+    "QUILPUE EL BELLOTO",
+    "QUILPUE MARGA MARGA",
+    "QUILPUE TERMINAL",
+    "QUILPUÉ VALENCIA",
+    "QUINTA NORMAL",
+    "QUIRIHUE",
+    "RANCAGUA CENTRAL ENCARGOS",
+    "RANCAGUA CONDEL",
+    "RANCAGUA MEMBRILLAR",
+    "Rapa Nui",
+    "RECOLETA",
+    "RENCA",
+    "RENGO",
+    "REÑACA",
+    "RICARDO LYON",
+    "RIO BUENO",
+    "ROJAS MAGALLANES",
+    "ROMAN DIAZ",
+    "ROTONDA ATENAS",
+    "RUIZ TAGLE",
+    "SALAMANCA",
+    "SAN ANTONIO",
+    "SAN ANTONIO BARRANCAS",
+    "SAN BERNARDO",
+    "SAN CARLOS",
+    "SAN DIEGO",
+    "SAN FELIPE SANTO DOMINGO",
+    "SAN FELIPE TRASLAVINA",
+    "San Felipe Yungay",
+    "SAN FERNANDO CARGA",
+    "San Javier",
+    "SAN JOSE MARIQUINA",
+    "SAN PABLO",
+    "SAN PEDRO DE ATACAMA",
+    "SAN VICENTE",
+    "SANTA AMALIA",
+    "SANTA BARBARA",
+    "SANTA CRUZ",
+    "SANTA ROSA",
+    "SANTIAGO IQUIQUE 3334",
+    "SIERRA GORDA",
+    "TAL TAL",
+    "TALAGANTE",
+    "Talca Oriente",
+    "TALCA PONIENTE",
+    "TALCA TERMINAL",
+    "TALCA VAROLI",
+    "TALCAHUANO CARGA",
+    "TARAPACA",
+    "TEMUCO ANTONIO VARAS",
+    "TEMUCO FUNDO EL CARMEN",
+    "TEMUCO ORTEGA",
+    "TEMUCO PABLO NERUDA",
+    "TEMUCO TORREMOLINOS",
+    "TEMUCO TORREMOLINOS",
+    "TENIENTE CRUZ",
+    "TERMINAL ALAMEDA",
+    "Tobalaba",
+    "TOCOPILLA",
+    "TOESCA",
+    "TOLTEN",
+    "TOME",
+    "TRAIGUEN",
+    "UNIMARC MIRADOR",
+    "VALDIVIA AV ESPAÑA",
+    "VALDIVIA CENTRAL DE CARGA",
+    "VALDIVIA ISLA TEJA",
+    "VALLENAR",
+    "VALPARAISO BRASIL",
+    "VALPARAISO RODOVIARIO",
+    "VALPO RODOVIARIO LOCAL 9",
+    "Vespucio Sur",
+    "VICTORIA",
+    "VICUÑA",
+    "VILCÚN",
+    "VILLA ALEMANA MATURANA",
+    "VILLARRICA",
+    "VIÑA ARLEGUI",
+    "VIÑA CARGA CALLE BATUCO",
+    "VIÑA CENTRAL CARGA",
+    "VIÑA QUILPUE",
+    "VIÑA UNO PONIENTE",
+    "VITACURA",
+    "WALKER MARTINEZ",
+    "YUMBEL",
+    "YUNGAY",
+    "ZAPALLAR"
+];
+
 // Ordenar comunas por región alfabéticamente
 Object.keys(comunasPorRegion).forEach(region => {
     comunasPorRegion[region].sort((a, b) => a.localeCompare(b));
@@ -675,6 +993,86 @@ document.getElementById('region').addEventListener('change', function() {
     }
 });
 
+// Obtén los elementos necesarios
+const sucursalInput = document.getElementById('sucursal');
+const suggestionsList = document.getElementById('suggestions');
+const errorMessage = document.getElementById('error-message');
+const nextButton = document.getElementById('nextButton');
+
+// Evento para manejar la entrada del usuario
+sucursalInput.addEventListener('input', () => {
+    const input = sucursalInput.value.toUpperCase();
+    suggestionsList.innerHTML = '';
+    suggestionsList.style.display = 'none';
+    errorMessage.style.display = 'none'; // Oculta el mensaje de error
+
+    if (input) {
+        const filteredSuggestions = sucursales.filter(sucursal => 
+            sucursal.toUpperCase().includes(input) // Comparar en mayúsculas
+        );
+
+        if (filteredSuggestions.length > 0) {
+            filteredSuggestions.forEach(sucursal => {
+                const li = document.createElement('li');
+                li.textContent = sucursal;
+                li.style.cursor = 'pointer';
+                li.addEventListener('click', () => {
+                    sucursalInput.value = sucursal;
+                    suggestionsList.innerHTML = '';
+                    suggestionsList.style.display = 'none';
+                    errorMessage.style.display = 'none'; // Oculta el mensaje de error al seleccionar una sugerencia
+                    nextButton.disabled = false; // Habilita el botón Siguiente al seleccionar una sugerencia válida
+                });
+                suggestionsList.appendChild(li);
+            });
+            suggestionsList.style.display = 'block';
+        }
+    }
+});
+
+// Evento para ocultar las sugerencias al perder el foco
+sucursalInput.addEventListener('blur', () => {
+    setTimeout(() => {
+        suggestionsList.style.display = 'none';
+    }, 100);
+});
+
+// Validar que solo se ingresen letras y números
+sucursalInput.addEventListener('keypress', (e) => {
+    const char = String.fromCharCode(e.which);
+    if (!/[a-zA-Z0-9 ]/.test(char)) {
+        e.preventDefault();
+    }
+});
+
+// Validar la sucursal al salir del campo
+sucursalInput.addEventListener('blur', () => {
+    const input = sucursalInput.value.toUpperCase();
+    const isValidSucursal = sucursales.some(sucursal => sucursal.toUpperCase() === input); // Compara en mayúsculas
+
+    if (input && !isValidSucursal) {
+        errorMessage.style.display = 'block'; // Muestra el mensaje de error
+        nextButton.disabled = true; // Deshabilita el botón Siguiente si la sucursal es inválida
+    } else {
+        errorMessage.style.display = 'none'; // Oculta el mensaje de error si es válido
+        nextButton.disabled = false; // Habilita el botón Siguiente si es válido
+    }
+});
+
+// Validar la sucursal al hacer clic en el botón Siguiente
+nextButton.addEventListener('click', () => {
+    const input = sucursalInput.value.toUpperCase();
+    const isValidSucursal = sucursales.some(sucursal => sucursal.toUpperCase() === input);
+
+    if (!isValidSucursal) {
+        errorMessage.style.display = 'block'; // Muestra el mensaje de error
+    } else {
+        errorMessage.style.display = 'none'; // Oculta el mensaje de error
+        // Aquí puedes añadir la lógica para avanzar al siguiente paso
+        console.log("Sucursal válida, avanzando al siguiente paso.");
+    }
+});
+
 // Validación del teléfono con el formato +56 9XXXXXXXX
 function validatePhone(phone) {
     const regex = /^\+56 9\d{8}$/;
@@ -819,6 +1217,8 @@ document.getElementById('nextButton').addEventListener('click', function (e) {
 
     // Validar campos adicionales (solo si el tipo de entrega es "domicilio")
     if (tipoEntrega === 'Domicilio') {
+        document.getElementById('resumenDomicilio').style.display = 'block'; // mostrar domicilio
+        document.getElementById('resumenDeSucursal').style.display = 'none'; // Ocultar sucursal
         const calle = document.getElementById('calle').value;
         const numero = document.getElementById('numero').value;
         const referencia = document.getElementById('dptoCasa').value;  // Nuevo campo referencia
@@ -843,7 +1243,6 @@ document.getElementById('nextButton').addEventListener('click', function (e) {
             document.getElementById('resumenNombre').textContent = `${nombres} ${apellidos}`;
             document.getElementById('resumenEmail').textContent = document.getElementById('email').value;
             document.getElementById('resumenTelefono').textContent = document.getElementById('telefono').value;
-            document.getElementById('resumenTipo').textContent = `${tipoEntrega}`;
             document.getElementById('resumenDireccion').textContent = direccion;
 
             document.getElementById('deliverySection').style.display = 'none'; // Ocultar entrega
@@ -851,11 +1250,13 @@ document.getElementById('nextButton').addEventListener('click', function (e) {
         }
     } else if (tipoEntrega === 'Sucursal') {
         // Mostrar resumen para entrega en sucursal
+        document.getElementById('resumenDomicilio').style.display = 'none'; // ocultar Domicilio
+        document.getElementById('resumenDeSucursal').style.display = 'block'; // mostrar sucursal
         document.getElementById('resumenRut').textContent = document.getElementById('rut').value;
         document.getElementById('resumenNombre').textContent = `${nombres} ${apellidos}`;
         document.getElementById('resumenEmail').textContent = document.getElementById('email').value;
         document.getElementById('resumenTelefono').textContent = document.getElementById('telefono').value;
-        document.getElementById('resumenDireccion').textContent = `Sucursal: ${document.getElementById('sucursal').value}`;
+        document.getElementById('resumenSucursal').textContent = document.getElementById('sucursal').value;
 
         document.getElementById('deliverySection').style.display = 'none'; // Ocultar entrega
         document.getElementById('resumenSection').style.display = 'block'; // Mostrar resumen
@@ -885,35 +1286,4 @@ document.getElementById('finalizarButton').addEventListener('click', function ()
             location.reload();  // Reiniciar la página
         }
     });
-});
-
-document.getElementById('nextButton').addEventListener('click', function (e) {
-    e.preventDefault();  // Evitar recarga por defecto
-
-    const rut = document.getElementById('rut').value;
-
-    // Verificar si hay datos del cliente guardados
-    const clienteData = JSON.parse(localStorage.getItem(rut));
-
-    if (clienteData) {
-        // Llenar los campos con los datos guardados
-        document.getElementById('nombres').value = clienteData.nombres;
-        document.getElementById('apellidos').value = clienteData.apellidos;
-        document.getElementById('email').value = clienteData.email;
-        document.getElementById('telefono').value = clienteData.telefono;
-
-        Swal.fire({
-            title: '¡Datos encontrados!',
-            text: 'Los datos del cliente han sido cargados automáticamente.',
-            icon: 'info',
-            confirmButtonText: 'Continuar'
-        });
-    } else {
-        Swal.fire({
-            title: '¡Nuevo cliente!',
-            text: 'Por favor ingrese sus datos.',
-            icon: 'warning',
-            confirmButtonText: 'Continuar'
-        });
-    }
 });

@@ -8,16 +8,16 @@
 
 /* Encabezado */
 .main-nav {
-    height: 70px; /* Altura del encabezado */
-    display: flex;
-    justify-content: center; /* Centra todos los elementos en el contenedor */
-    align-items: center;
-    background-color: #bcb2c4;
-    padding: 10px 20px;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1; /* Agrega este línea */
-    position: relative; /* Requerido para z-index */
-    border-bottom: 1px #473243; /* Agrega este línea */
+  height: 70px; /* Altura del encabezado */
+  display: flex;
+  justify-content: space-between; /* Espacio entre logo y resto del contenido */
+  align-items: center;
+  background-color: #bcb2c4; /* Mantener el color de fondo */
+  padding: 10px 20px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1); /* Mantener la sombra */
+  z-index: 1; /* Asegura que esté en frente */
+  position: relative; /* Necesario para la posición */
+  border-bottom: 1px solid #473243; /* Mantener borde */
 }
 
 .logo {
@@ -29,24 +29,26 @@
     max-height: 50px;
 }
 
+/* Estilo por defecto para nav-links */
 .nav-links {
-    display: flex;
-    list-style: none;
+  display: flex; /* Mostrar como flexbox para dispositivos de escritorio */
+  list-style: none; /* Sin viñetas */
+  justify-content: center; /* Centrar horizontalmente en la barra de navegación */
+  flex-grow: 1; /* Permitir que el menú ocupe el espacio disponible */
 }
 
 .nav-links li {
-    margin: 0 20px; /* Espacio igual a la izquierda y derecha */
+  margin: 0 20px; /* Espaciado entre elementos */
 }
 
 .nav-links a {
-    text-decoration: none;
-    color: #473243; /* Cambia a este color para los enlaces */
-    font-size: 20px; /* Aumenta el tamaño de la fuente */
-    font-family: "Trebuchet MS", sans-serif; /* Aplicar la fuente */
+  text-decoration: none;
+  color: #473243; /* Color de los enlaces */
+  font-size: 20px; /* Tamaño del texto */
 }
 
 .nav-links a:hover {
-    text-decoration: underline;
+  text-decoration: underline; /* Efecto hover */
 }
 
 /* Estilos para los enlaces activos y visitados */
@@ -446,3 +448,152 @@ button {
 button:hover {
   background-color: #c0a2c7;
 }
+
+#suggestions {
+  position: absolute; /* Permite que la lista se superponga al contenido */
+  background-color: white; /* Fondo blanco para la lista */
+  border: 1px solid #ccc; /* Borde gris claro */
+  border-radius: 4px; /* Bordes redondeados */
+  z-index: 1000; /* Asegura que la lista esté encima de otros elementos */
+  max-height: 200px; /* Altura máxima de la lista */
+  overflow-y: auto; /* Agrega scroll si hay muchas sugerencias */
+  display: none; /* Inicialmente oculta */
+}
+
+#suggestions li {
+  padding: 8px 12px; /* Espaciado interno de las opciones */
+  cursor: pointer; /* Cambia el cursor al pasar el mouse */
+}
+
+#suggestions li:hover {
+  background-color: #DECEDF; /* Color de fondo al hacer hover */
+  color: #000; /* Color de texto (puedes cambiarlo si lo deseas) */
+}
+
+#sucursal {
+  position: relative; /* Permite que la lista se posicione correctamente */
+}
+
+/* Ajuste del ícono hamburguesa */
+.hamburger {
+  background: none;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+  color: #473243;
+  display: none; /* Oculto en escritorio */
+  margin-left: auto; /* Alineado a la derecha */
+  z-index: 2;
+}
+
+/* Cambiar el fondo al hacer clic */
+.hamburger:active {
+  background-color: rgba(188, 178, 196, 0.5); /* Color de fondo al hacer clic */
+}
+
+/* Mostrar hamburguesa en móviles */
+@media (max-width: 768px) {
+  .hamburger {
+      display: block; /* Visible en móviles */
+  }
+
+  .main-nav {
+      height: 60px;
+      padding: 5px 15px;
+  }
+
+  /* Menú desplegable compacto y centrado */
+  #nav-links {
+      display: none; /* Oculto por defecto */
+      flex-direction: column;
+      align-items: center; /* Centra horizontalmente */
+      justify-content: center; /* Centra verticalmente */
+      position: absolute; /* Permitir desplazamiento si hay mucho contenido */
+      top: 60px; /* Justo debajo del header */
+      right: 0;
+      width: 100%; /* Ocupar ancho completo */
+      background-color: #bcb2c4; /* Color del menú */
+      padding: 20px 0; /* Espacio interno arriba y abajo */
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); /* Sombra para un efecto flotante */
+      z-index: 1;
+      transition: all 0.3s ease-in-out; /* Suavizar la transición */
+  }
+
+  .show-nav #nav-links {
+      display: flex;
+  }
+
+  .nav-links li {
+      margin: 10px 0; /* Espacio entre opciones */
+  }
+
+  .nav-links a {
+      font-size: 18px; /* Tamaño cómodo para móviles */
+      color: #473243;
+      text-align: center;
+      text-decoration: none;
+      padding: 5px 0; /* Espacio vertical */
+  }
+
+  /* Evitar que el fondo se desplace cuando el menú está abierto */
+  body.show-nav {
+      overflow: hidden;
+  }
+}
+
+/* Carrusel en móviles */
+@media (max-width: 768px) {
+  .carousel {
+      height: 400px; /* Reduce la altura del carrusel */
+  }
+
+  .carousel-image {
+      height: 400px;
+      object-fit: cover; /* Ajuste mejor para pantallas pequeñas */
+  }
+}
+
+/* Instagram Grid */
+@media (max-width: 768px) {
+  .instagram-section h2 {
+      font-size: 40px; /* Tamaño del texto más pequeño en móviles */
+  }
+}
+
+@media (max-width: 768px) {
+  .instagram-grid {
+      grid-template-columns: repeat(2, 1fr); /* 2 columnas en lugar de 5 */
+  }
+}
+
+@media (max-width: 480px) {
+  .instagram-grid {
+      grid-template-columns: 1fr; /* Una sola columna en pantallas muy pequeñas */
+  }
+}
+
+/* Formulario en móviles */
+@media (max-width: 768px) {
+  .ingreso-content {
+      margin: 1rem; /* Reduce los márgenes en móviles */
+      width: auto;
+  }
+
+  .form-group input,
+  .form-group select {
+      font-size: 1rem; /* Ajuste de tamaño de fuente */
+  }
+}
+
+/* Footer */
+@media (max-width: 768px) {
+  footer {
+      text-align: center;
+      padding: 10px;
+  }
+
+  .social-icons a {
+      margin: 5px;
+  }
+}
+

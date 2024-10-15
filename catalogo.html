@@ -3,6 +3,8 @@
 <body>
 <head>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,13 +18,26 @@
                 <img src="images/logo.png" alt="Bendise Tu Ropa" class="logo-img">
             </a>
         </div>
-        <ul class="nav-links">
+        <ul class="nav-links" id="nav-links">
             <li><a href="index.html">INICIO</a></li>
             <li><a href="catalogo.html">CATÁLOGO</a></li>
             <li><a href="ingreso.html">INGRESO</a></li>
             <li><a href="#contacto">CONTACTO</a></li>
         </ul>
+        <button id="hamburger-menu" class="hamburger">&#9776;</button>
     </nav>
 </header>
+<script src="script.js"></script>
+<footer>
+    <div class="social-media">
+        <p class="instagram-handle">@bendisetumoda</p>
+        <div class="social-icons">
+            <a href="https://www.instagram.com/bendisetumoda/" class="social-icon instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.facebook.com/bendise.turopa.1" class="social-icon facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://api.whatsapp.com/send/?phone=56996412799&text&type=phone_number&app_absent=0" class="social-icon whatsapp"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+    </div>
+</footer>
+
 </body>
 </html>
