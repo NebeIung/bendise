@@ -1,9 +1,21 @@
 const hamburgerMenu = document.getElementById("hamburger-menu");
 const navLinks = document.getElementById("nav-links");
 
-hamburgerMenu.addEventListener("click", () => {
+// Alternar el menú al hacer clic en el ícono de hamburguesa
+hamburgerMenu.addEventListener("click", (e) => {
     document.body.classList.toggle("show-nav");
+    e.stopPropagation(); // Evita el cierre inmediato si haces clic en la hamburguesa
 });
+
+// Cerrar el menú si se hace clic fuera del menú o la hamburguesa
+document.addEventListener("click", (e) => {
+    const isMenuOpen = document.body.classList.contains("show-nav");
+
+    if (isMenuOpen && !navLinks.contains(e.target) && e.target !== hamburgerMenu) {
+        document.body.classList.remove("show-nav");
+    }
+});
+
 // Comunas por región
 const comunasPorRegion = {
     "Región Metropolitana de Santiago": [

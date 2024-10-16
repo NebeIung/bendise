@@ -17,7 +17,6 @@
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1); /* Mantener la sombra */
   z-index: 1; /* Asegura que esté en frente */
   position: relative; /* Necesario para la posición */
-  border-bottom: 1px solid #473243; /* Mantener borde */
 }
 
 .logo {
@@ -182,6 +181,8 @@ div.arrow {
     font-weight: 100;
     margin-bottom: 30px;
     transition: all 0.3s ease; /* Transición suave */
+    text-decoration-color: #cec6c6; /* Cambia el color del subrayado */
+    text-decoration-thickness: 2px; /* Controla el grosor */
   }
   
   .instagram-section h2:hover {
@@ -197,6 +198,22 @@ div.arrow {
 .instagram-item img {
     width: 100%;
     height: auto;
+}
+
+/* Eliminar estilos predeterminados del enlace */
+.instagram-section h2 a {
+  text-decoration: none; /* Sin subrayado */
+  color: inherit; /* Hereda el color del elemento h2 */
+  font-family: "Trebuchet MS", sans-serif;
+}
+
+/* Forzar eliminación del color púrpura y subrayado en hover o focus */
+.instagram-section h2 a:link,
+.instagram-section h2 a:visited,
+.instagram-section h2 a:hover,
+.instagram-section h2 a:active {
+  text-decoration: none; /* Sin subrayado */
+  color: inherit; /* Hereda el color del elemento padre */
 }
 
 /* Estilos del footer */
@@ -478,7 +495,7 @@ button:hover {
 .hamburger {
   background: none;
   border: none;
-  font-size: 30px;
+  font-size: 20px;
   cursor: pointer;
   color: #473243;
   display: none; /* Oculto en escritorio */
@@ -496,15 +513,18 @@ button:hover {
   .hamburger {
       display: block; /* Visible en móviles */
   }
+  #hamburger-menu:hover {
+    background-color: inherit; /* No cambia color al pasar el ratón */
+  }
 
   .logo img {
     max-height: 30px;
-}
-
+  }
 
   .main-nav {
       height: 60px;
       padding: 5px 15px;
+      border-bottom: 1px solid #473243; /* Mantener borde */
   }
 
   /* Menú desplegable compacto y centrado */
@@ -561,7 +581,8 @@ button:hover {
 /* Instagram Grid */
 @media (max-width: 768px) {
   .instagram-section h2 {
-      font-size: 40px; /* Tamaño del texto más pequeño en móviles */
+      font-size: 30px; /* Tamaño del texto más pequeño en móviles */
+      text-align: center;
   }
 }
 
