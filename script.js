@@ -19,57 +19,58 @@ document.addEventListener("click", (e) => {
 // Comunas por región
 const comunasPorRegion = {
     "Región Metropolitana de Santiago": [
-        "Alhué",
+        "Colina",
+        "Lampa",
+        "Til Till",
+        "Pirque",
+        "Puente Alto",
+        "San José de Maipo",
         "Buin",
         "Calera de Tango",
+        "Paine",
+        "San Bernardo",
+        "Alhué",
+        "Curacaví",
+        "María Pinto",
+        "Melipilla",
+        "San Pedro",
         "Cerrillos",
         "Cerro Navia",
-        "Colina",
         "Conchalí",
-        "Curacaví",
         "El Bosque",
-        "El Monte",
         "Estación Central",
         "Huechuraba",
         "Independencia",
-        "Isla de Maipo",
         "La Cisterna",
-        "La Florida",
         "La Granja",
+        "La Florida",
         "La Pintana",
         "La Reina",
-        "Lampa",
         "Las Condes",
         "Lo Barnechea",
         "Lo Espejo",
         "Lo Prado",
         "Macul",
         "Maipú",
-        "María Pinto",
-        "Melipilla",
         "Ñuñoa",
-        "Padre Hurtado",
         "Pedro Aguirre Cerda",
-        "Peñaflor",
         "Peñalolén",
-        "Pirque",
         "Providencia",
         "Pudahuel",
-        "Puente Alto",
         "Quilicura",
         "Quinta Normal",
         "Recoleta",
         "Renca",
-        "San Bernardo",
-        "San Joaquín",
-        "San José de Maipo",
         "San Miguel",
-        "San Pedro",
+        "San Joaquín",
         "San Ramón",
         "Santiago",
-        "Talagante",
-        "Til Til",
-        "Vitacura"
+        "Vitacura",
+        "El Monte",
+        "Isla de Maipo",
+        "Padre Hurtado",
+        "Peñaflor",
+        "Talagante"
     ],
     "Región de Tarapacá": [
         "Iquique",
@@ -1107,19 +1108,19 @@ function validateNames(name) {
     return /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(name);
 }
 
-// Restricción de caracteres en el campo de calle
+// Restricción de caracteres en el campo de calle (permitiendo letras, números, puntos y espacios)
 document.getElementById('calle').addEventListener('input', function () {
-    this.value = this.value.replace(/[^a-zA-Z0-9\.]/g, '');
+    this.value = this.value.replace(/[^a-zA-Z0-9\. ]/g, '');
 });
 
-// Restricción de caracteres en el campo de número
+// Restricción de caracteres en el campo de número (solo letras y números)
 document.getElementById('numero').addEventListener('input', function () {
     this.value = this.value.replace(/[^a-zA-Z0-9]/g, '');
 });
 
-// Restricción de caracteres en el campo de referencia
+// Restricción de caracteres en el campo de referencia (permitiendo letras, números, puntos y espacios)
 document.getElementById('dptoCasa').addEventListener('input', function () {
-    this.value = this.value.replace(/[^a-zA-Z0-9\.]/g, '');
+    this.value = this.value.replace(/[^a-zA-Z0-9\. ]/g, '');
 });
 
 // Restricción de caracteres en los campos de nombres y apellidos
