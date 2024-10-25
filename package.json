@@ -1,0 +1,19 @@
+{
+  "name": "bendise",
+  "version": "1.0.0",
+  "description": "Proyecto Bendise - Aplicación web para gestión de clientes y envíos",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Tu Nombre",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.1",
+    "sweetalert2": "^11.4.21",
+    "xlsx": "^0.18.5"
+  }
+}

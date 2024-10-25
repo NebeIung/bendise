@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bendise - Ingreso de Datos</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+</head>
+<body class="ingreso">
+    <header>
+        <nav class="main-nav">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/logo.png" alt="Bendise Tu Ropa" class="logo-img">
+                </a>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">INICIO</a></li>
+                <li><a href="catalogo.html">CATÁLOGO</a></li>
+                <li><a href="ingreso.html">INGRESO</a></li>
+                <li><a href="#contacto">CONTACTO</a></li>
+            </ul>
+            <button id="hamburger-menu" class="hamburger">&#9776;</button>
+        </nav>
+    </header>
+    <main>
+    <div class="ingreso-content">
+        <!-- Sección para ingresar el RUT -->
+        <form id="rutForm">
+            <div id="rutSection" class="form-ingreso">
+                <label for="rut">Ingrese su RUT:</label>
+                <input type="text" id="rut" placeholder="12.345.678-9" maxlength="12" required>
+                <span id="rutError" style="color: red; display: block; margin-top: 5px;"></span> <!-- Aquí está el error -->
+                <button class="button-next" type="submit">Siguiente</button>
+            </div>
+        </form>
+
+        <!-- Sección de datos de cliente -->
+        <div id="extraFieldsSection" class="form-ingreso" style="display: none;">
+            <form id="extraFieldsForm">
+                <div class="form-group">
+                    <label for="nombres">Nombres:</label>
+                    <input type="text" id="nombres" placeholder="Ingrese sus nombres" required>
+                    <span id="nombresError" class="error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="apellidos">Apellidos:</label>
+                    <input type="text" id="apellidos" placeholder="Ingrese sus apellidos" required>
+                    <span id="apellidosError" class="error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="text" id="email" placeholder="Ingrese su email" required>
+                    <span id="emailError" class="error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Teléfono:</label>
+                    <input type="text" id="telefono" placeholder="Ingrese su teléfono" value="+56" required>
+                    <span id="telefonoError" class="error"></span>
+                    </div>
+                <button class="button-next" type="submit">Siguiente</button>
+            </form>
+        </div>
+
+        <!-- Sección de datos de envío -->
+        <div id="deliverySection" class="form-direccion" style="display: none;">
+            <form id="deliveryForm">
+                <div class="form-group">
+                    <label for="tipoEntrega">Tipo de Entrega:</label>
+                    <select id="tipoEntrega" required>
+                        <option value="">Seleccione una opción</option>
+                        <option value="Domicilio">Domicilio</option>
+                        <option value="Sucursal">Sucursal</option>
+                    </select>
+                </div>
+                <div id="domicilioFields" class="form-group" style="display: none;">
+                    <label for="region">Región:</label>
+                    <select id="region" required>
+                        <option value="">Seleccione una región</option>
+                        <option value="Región de Arica y Parinacota">Región de Arica y Parinacota</option>
+                        <option value="Región de Tarapacá">Región de Tarapacá</option>
+                        <option value="Región de Antofagasta">Región de Antofagasta</option>
+                        <option value="Región de Atacama">Región de Atacama</option>
+                        <option value="Región de Coquimbo">Región de Coquimbo</option>
+                        <option value="Región de Valparaíso">Región de Valparaíso</option>
+                        <option value="Región Metropolitana de Santiago">Región Metropolitana de Santiago</option>
+                        <option value="Región del Libertador General Bernardo O’Higgins">Región del Libertador General Bernardo O’Higgins</option>
+                        <option value="Región del Maule">Región del Maule</option>
+                        <option value="Región de Ñuble">Región de Ñuble</option>
+                        <option value="Región del Biobío">Región del Biobío</option>
+                        <option value="Región de La Araucanía">Región de La Araucanía</option>
+                        <option value="Región de Los Ríos">Región de Los Ríos</option>
+                        <option value="Región de Los Lagos">Región de Los Lagos</option>
+                        <option value="Región Aysén del General Carlos Ibáñez del Campo">Región Aysén del General Carlos Ibáñez del Campo</option>
+                        <option value="Región de Magallanes y Antártica Chilena">Región de Magallanes y Antártica Chilena</option>
+                    </select>
+
+                    <label for="comuna">Comuna:</label>
+                    <select id="comuna" required>
+                        <option value="">Seleccione una comuna</option>
+                        <!-- Las comunas aparecerán aquí dinámicamente -->
+                    </select>
+
+                    <label for="calle">Calle:</label>
+                    <input type="text" id="calle" placeholder="Ingrese la calle" required>
+
+                    <label for="numero">Número:</label>
+                    <input type="text" id="numero" placeholder="Ingrese el número" required>
+
+                    <label for="dptoCasa">Referencia:</label>
+                    <input type="text" id="dptoCasa" placeholder="departamento o casa">
+                </div>
+                <div id="sucursalFields" class="form-group" style="display: none;">
+                    <label for="sucursal">Sucursal:</label>
+                    <input type="text" id="sucursal" placeholder="Ingrese la sucursal" required>
+                    <ul id="suggestions" style="list-style: none; padding: 0; margin: 0;"></ul>
+                    <div id="error-message" style="color: red; display: none;">Sucursal inválida</div> <!-- Mensaje de error -->
+                </div>
+
+                <button class="button-back" id="backButton" type="button">Atrás</button>
+                <button class="button-next" id="nextButton" type="button">Siguiente</button>
+            </form>
+        </div>
+
+        <!-- Sección de resumen -->
+        <div style="padding-bottom: 1px;">
+            <div id="resumenSection" class="form-direccion" style="display: none;">
+                <h3 style="padding-bottom: 20px;">Confirmación de Datos:</h3>
+                <p style="padding-bottom: 10px;"><strong>RUT:</strong> <span id="resumenRut"></span></p>
+                <p style="padding-bottom: 10px;"><strong>Nombre:</strong> <span id="resumenNombre"></span></p>
+                <p style="padding-bottom: 10px;"><strong>Email:</strong> <span id="resumenEmail"></span></p>
+                <p style="padding-bottom: 10px;"><strong>Teléfono:</strong> <span id="resumenTelefono"></span></p>
+                <p id="resumenDomicilio" style="padding-bottom: 20px;"><strong>Dirección de Entrega:</strong> <span id="resumenDireccion"></span></p>
+                <p id="resumenDeSucursal" style="padding-bottom: 20px;"><strong>Sucursal de Entrega:</strong> <span id="resumenSucursal"></span></p>
+                <button class="button-back" id="backButton2" type="button">Atrás</button>
+                <button type="button" id="finalizarButton">Finalizar</button>
+            </div>
+        </div>
+
+    <script type="module" src="script.js"></script>
+    <script type="module" src="./excel.js"></script>
+
+    </div>
+    </main>
+
+    <footer>
+        <div class="social-media">
+            <p class="instagram-handle">@bendisetumoda</p>
+            <div class="social-icons">
+                <a href="https://www.instagram.com/bendisetumoda/" class="social-icon instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.facebook.com/bendise.turopa.1" class="social-icon facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://api.whatsapp.com/send/?phone=56996412799&text&type=phone_number&app_absent=0" class="social-icon whatsapp"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
