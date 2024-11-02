@@ -827,19 +827,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const indicators = document.querySelectorAll('.indicator');
     const leftArrow = document.querySelector('.arrow-left');
     const rightArrow = document.querySelector('.arrow-right');
+
+    // Verifica que los elementos existen
+    if (images.length === 0 || indicators.length === 0 || !leftArrow || !rightArrow) {
+        console.warn('Los elementos del carrusel no se encontraron en el DOM.');
+        return; // Salir del script si no hay carrusel
+    }
+
     let currentSlide = 0;
     let slideInterval;
 
     // Mostrar la imagen activa y el indicador correspondiente
     function showSlide(index) {
         images.forEach((img, i) => {
-        img.classList.remove('active');
-        if (i === index) {
-            img.classList.add('active');
-        }
+            img.classList.remove('active');
+            if (i === index) {
+                img.classList.add('active');
+            }
         });
         indicators.forEach((indicator, i) => {
-        indicator.classList.toggle('active', i === index);
+            indicator.classList.toggle('active', i === index);
         });
     }
 
@@ -886,16 +893,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     indicators.forEach((indicator, index) => {
         indicator.addEventListener('click', () => {
-        stopAutoSlide();
-        goToSlide(index);
-        startAutoSlide();
+            stopAutoSlide();
+            goToSlide(index);
+            startAutoSlide();
         });
     });
 
     // Iniciar el carrusel
     showSlide(currentSlide);
     startAutoSlide();
-    });
+});
 
 // Validación del RUT con dígito verificador
 function validateRUT(rut) {
@@ -1276,68 +1283,171 @@ document.getElementById('nextButton').addEventListener('click', function (e) {
     }
 });
 
-//Finalizar formulario y llenado excel
-document.getElementById('finalizarButton').addEventListener('click', async function () {
-    try {
-        // Obtener datos del formulario
-        const clienteData = {
-            rut: document.getElementById('rut').value,
-            nombres: document.getElementById('nombres').value,
-            apellidos: document.getElementById('apellidos').value,
-            email: document.getElementById('email').value,
-            telefono: document.getElementById('telefono').value
-        };
-
-        console.log('Enviando datos:', clienteData);
-
-        // Validar que todos los campos estén llenos
-        if (!clienteData.rut || !clienteData.nombres || !clienteData.apellidos || !clienteData.email || !clienteData.telefono) {
-            throw new Error('Por favor complete todos los campos');
-        }
-
-        // Guardar en LocalStorage
-        localStorage.setItem(clienteData.rut, JSON.stringify(clienteData));
-
-        // Enviar datos al servidor
-        const response = await fetch('/generar-excel', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(clienteData)
-        });
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(`Error del servidor: ${errorData.message}\n${errorData.error}\n${errorData.stack}`);
-        }
-
-        // Descargar el archivo Excel
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `reporte_${clienteData.rut}.xlsx`;
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
-
-        // Mostrar mensaje de éxito
-        await Swal.fire({
-            title: '¡Ingreso exitoso!',
-            text: 'Nos pondremos en contacto pronto para enviar su comprobante de ingreso.',
-            icon: 'success',
-            confirmButtonText: 'Aceptar'
-        });
-
-        location.reload();
-
-    } catch (error) {
-        console.error('Error completo:', error);
-        Swal.fire({
-            title: 'Error',
-            text: error.message || 'Hubo un problema al completar el ingreso. Inténtelo nuevamente.',
-            icon: 'error',
-            confirmButtonText: 'Aceptar'
-        });
+// Asegurarnos de que el código se ejecuta cuando el DOM está completamente cargado
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM cargado - Inicializando eventos');
+    
+    const finalizarButton = document.getElementById('finalizarButton');
+    
+    if (!finalizarButton) {
+        console.error('No se encontró el botón finalizar en el DOM');
+        return;
     }
+
+    console.log('Botón finalizar encontrado - Agregando evento click');
+
+    finalizarButton.addEventListener('click', async function(e) {
+        e.preventDefault(); // Prevenir cualquier comportamiento por defecto
+        console.log('Botón finalizar clickeado');
+
+        try {
+            const tipoEntregaElement = document.getElementById('tipoEntrega');
+            if (!tipoEntregaElement) {
+                throw new Error('No se encontró el elemento tipoEntrega');
+            }
+            
+            const tipoEntrega = tipoEntregaElement.value;
+            console.log('Tipo de entrega seleccionado:', tipoEntrega);
+
+            // Verificar que los campos estén completos
+            if (!validarCamposFinales(tipoEntrega)) {
+                console.log('Validación fallida');
+                await Swal.fire({
+                    title: 'Campos incompletos',
+                    text: 'Por favor, complete todos los campos obligatorios.',
+                    icon: 'warning',
+                    confirmButtonText: 'Aceptar'
+                });
+                return;
+            }
+
+            console.log('Validación exitosa - Recolectando datos');
+
+            // Recolectar los datos básicos
+            const data = {
+                tipoEntrega,
+                nombres: document.getElementById('nombres').value,
+                apellidos: document.getElementById('apellidos').value,
+                rut: document.getElementById('rut').value,
+                email: document.getElementById('email').value,
+                // Obtener y recortar el número de teléfono
+                telefono: document.getElementById('telefono').value.replace(/^\+56\s?/, '') // Elimina el prefijo +56
+            };
+
+            // Agregar datos según tipo de entrega
+            if (tipoEntrega === 'Domicilio') {
+                const calle = document.getElementById('calle').value;
+                const numero = document.getElementById('numero').value;
+                const referencia = document.getElementById('dptoCasa').value;
+                const comuna = document.getElementById('comuna').value;
+
+                data.direccion = referencia ? 
+                    `${calle}, ${numero}, ${referencia}` : 
+                    `${calle}, ${numero}`;
+                data.comuna = comuna;
+            } else if (tipoEntrega === 'Sucursal') {
+                const sucursalElement = document.getElementById('sucursal');
+                if (!sucursalElement) {
+                    throw new Error('No se encontró el elemento sucursal');
+                }
+                data.sucursal = sucursalElement.value;
+            }
+
+            console.log('Datos recolectados:', data);
+            console.log('Iniciando petición fetch al servidor');
+
+            const response = await fetch('/enviar-datos', {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    // Agregar un header personalizado para depuración
+                    'X-Client-Debug': 'true'
+                },
+                body: JSON.stringify(data),
+            });
+
+            console.log('Respuesta recibida del servidor:', response.status);
+
+            const responseData = await response.json();
+            console.log('Datos de la respuesta:', responseData);
+
+            if (response.ok) {
+                console.log('Petición exitosa - Mostrando mensaje de éxito');
+                await Swal.fire({
+                    title: '¡Ingreso exitoso!',
+                    text: 'Los datos se han guardado correctamente.',
+                    icon: 'success',
+                    confirmButtonText: 'Aceptar'
+                });
+                console.log('Recargando página');
+                window.location.reload();
+            } else {
+                throw new Error(responseData.mensaje || 'Error en el servidor');
+            }
+        } catch (error) {
+            console.error('Error detallado:', error);
+            await Swal.fire({
+                title: 'Error',
+                text: error.message || 'No se pudo enviar los datos. Inténtelo de nuevo.',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
+        }
+    });
 });
+
+// Función de validación mejorada
+function validarCamposFinales(tipoEntrega) {
+    console.log('Iniciando validación de campos para tipo de entrega:', tipoEntrega);
+    
+    const camposBasicos = ['rut', 'nombres', 'apellidos', 'email', 'telefono'];
+    
+    // Verificar campos básicos
+    for (const campo of camposBasicos) {
+        const elemento = document.getElementById(campo);
+        if (!elemento) {
+            console.error(`Campo no encontrado: ${campo}`);
+            return false;
+        }
+        const valor = elemento.value.trim();
+        if (valor === '') {
+            console.log(`Campo vacío: ${campo}`);
+            return false;
+        }
+        console.log(`Campo ${campo} válido:`, valor);
+    }
+
+    // Verificar campos específicos según tipo de entrega
+    if (tipoEntrega === 'Domicilio') {
+        const camposDomicilio = ['calle', 'numero', 'comuna'];
+        for (const campo of camposDomicilio) {
+            const elemento = document.getElementById(campo);
+            if (!elemento) {
+                console.error(`Campo de domicilio no encontrado: ${campo}`);
+                return false;
+            }
+            const valor = elemento.value.trim();
+            if (valor === '') {
+                console.log(`Campo de domicilio vacío: ${campo}`);
+                return false;
+            }
+            console.log(`Campo de domicilio ${campo} válido:`, valor);
+        }
+    } else if (tipoEntrega === 'Sucursal') {
+        const sucursalElement = document.getElementById('sucursal');
+        if (!sucursalElement) {
+            console.error('Campo sucursal no encontrado');
+            return false;
+        }
+        const valor = sucursalElement.value.trim();
+        if (valor === '') {
+            console.log('Campo sucursal vacío');
+            return false;
+        }
+        console.log('Campo sucursal válido:', valor);
+    }
+
+    console.log('Validación completada exitosamente');
+    return true;
+}
+

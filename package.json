@@ -3,17 +3,19 @@
   "version": "1.0.0",
   "description": "Proyecto Bendise - Aplicación web para gestión de clientes y envíos",
   "main": "server.js",
-  "type": "module",
   "scripts": {
     "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon server.js"
   },
-  "keywords": [],
-  "author": "Tu Nombre",
-  "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "exceljs": "^4.4.0",
     "express": "^4.21.1",
-    "sweetalert2": "^11.4.21",
-    "xlsx": "^0.18.5"
+    "helmet": "^8.0.0",
+    "xlsx-populate": "^1.21.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
   }
 }
