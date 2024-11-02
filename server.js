@@ -1,6 +1,7 @@
 const XlsxPopulate = require('xlsx-populate');
 const path = require('path');
 const express = require('express');
+const multer = require('multer'); // Importar multer
 const fs = require('fs').promises;
 const app = express();
 
@@ -156,6 +157,50 @@ async function escribirDatosEnExcel(sheet, rowNumber, values) {
         }
     });
 }
+
+// Middleware para manejar la carga de archivos
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, path.join(__dirname, 'public')); // Ruta donde se almacenarán los archivos subidos
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.originalname); // Mantener el nombre original del archivo
+    }
+});
+
+const upload = multer({ storage: storage });
+
+// Ruta para subir el archivo Excel
+app.post('/upload-excel', upload.single('file'), async (req, res) => {
+    if (!req.file) {
+        return res.status(400).send('No se subió ningún archivo.');
+    }
+    
+    // Reemplazar el archivo existente con el nuevo archivo subido
+    const newFilePath = path.join(__dirname, 'public', 'plantilla-emision-masiva_v2.xlsx');
+    const oldFilePath = req.file.path; // Ruta del archivo subido
+
+    try {
+        await fs.rename(oldFilePath, newFilePath); // Mover el archivo subido a la ubicación deseada, sobrescribiendo el existente
+        res.send(`Archivo subido y sobrescrito exitosamente: ${newFilePath}`);
+    } catch (err) {
+        console.error('Error al sobrescribir el archivo:', err);
+        res.status(500).send('Error al sobrescribir el archivo.');
+    }
+});
+
+// Ruta para descargar el archivo Excel
+app.get('/descargar-excel', (req, res) => {
+    const excelPath = EXCEL_CONFIG.FILE_PATH;
+    res.download(excelPath, 'plantilla-emision-masiva_v2.xlsx', (err) => {
+        if (err) {
+            console.error('Error al descargar el archivo:', err);
+            res.status(500).send('Error al descargar el archivo');
+        } else {
+            console.log('Archivo Excel enviado para descarga');
+        }
+    });
+});
 
 // Rutas
 app.get('/', (req, res) => {
