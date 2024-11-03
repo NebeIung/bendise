@@ -811,7 +811,7 @@ const sucursales = [
     "VIÑA QUILPUE",
     "VIÑA UNO PONIENTE",
     "VITACURA",
-    "WALKER MARTINEZ",
+    "WALKER MARTINEZ 24/7",
     "YUMBEL",
     "YUNGAY",
     "ZAPALLAR"
