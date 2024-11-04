@@ -237,7 +237,6 @@ footer {
 .instagram-handle {
   color: #473243;
   font-size: 18px;
-  margin-bottom: 10px;
 }
 
 .social-icon {
@@ -274,6 +273,7 @@ body.ingreso footer {
   background-color: #ffffff;
   padding: 20px;
   border-radius: 8px;
+  font-weight: bold;
 }
 
 .confirmacion-content {
@@ -310,6 +310,19 @@ body.ingreso footer {
   font-size: 1rem;
 }
 
+#rutForm label,
+#rutForm input[type="text"],
+#rutForm {
+    font-weight: bold; /* Hace que la letra sea más gruesa */
+    font-size: medium;
+    outline: none; /* Esto elimina el borde de enfoque por defecto */
+}
+
+#rutForm input[type="text"]:focus {
+  border-color: #473243; /* Mantiene el color del borde al hacer clic */
+  border-width: 2px; /* Mantiene el grosor */
+}
+
 .form-group input[type="checkbox"] {
   margin-right: 0.5rem;
 }
@@ -329,6 +342,14 @@ body.ingreso footer {
 
 .input-prefix input {
   padding-left: 40px;
+}
+
+input[type="text"]:focus,
+select:focus {
+    border-color: #473243;
+    border-width: 2px; /* Ajusta el grosor aquí según lo que prefieras */
+    outline: none; /* Esto elimina el borde de enfoque por defecto */
+    border-radius: 4px;
 }
 
 button {
@@ -403,6 +424,10 @@ input.error {
       height: 60px;
       padding: 5px 15px;
       border-bottom: 1px solid #473243;
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
   }
 
   .logo img {
@@ -411,6 +436,9 @@ input.error {
 
   .hamburger {
       display: block;
+      position: absolute;
+      right: 20px;
+      font-size: 24px;
   }
 
   #nav-links {
@@ -464,40 +492,164 @@ input.error {
   }
 
   .ingreso-content {
-    margin: 1rem;
-    width: auto;
-    padding: 10px; /* Padding ligeramente más pequeño en móviles */
+      margin: 1rem;
+      width: auto;
+      padding: 15px;
   }
 
-  .form-group input,
-  .form-group select {
-      font-size: 16px;
+  /* Formularios en móviles */
+  .form-group label,
+  #rutForm label {
+      font-size: 22px;
+      margin-bottom: 12px;
+      font-weight: bold;
+      color: #333;
+  }
+
+  .form-group input[type="text"],
+  .form-group input[type="email"],
+  .form-group select,
+  #rutForm input[type="text"] {
+      height: 50px;
+      font-size: 22px;
+      padding: 5px;
+      margin-bottom: 20px;
+      border: 2px solid #ddd;
+  }
+
+  .form-group input[type="text"]:focus,
+  .form-group input[type="email"]:focus,
+  .form-group select:focus,
+  #rutForm input[type="text"]:focus {
+      border-color: #473243;
+      outline: none;
+  }
+
+  input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"],
+    textarea {
+        width: 100%;
+        padding: 10px; /* Tamaño de padding uniforme */
+        margin: 5px 0; /* Espacio arriba y abajo */
+    }
+
+  input::placeholder {
+      font-size: 18px;
+  }
+
+  /* Botones más grandes */
+  button {
+      font-size: 20px;
+      margin: 15px 0;
+      padding: 12px 20px;
+  }
+
+  /* Espacio entre grupos de formulario */
+  .form-group {
+      margin-bottom: 20px;
+  }
+
+  /* Texto de error más visible */
+  .error {
+      font-size: 14px;
+      margin-top: 5px;
+      padding: 5px 0;
+  }
+
+  /* Mejorar selects */
+  select {
+      background-position: right 15px center;
+      padding-right: 40px;
+  }
+
+  .input-field {
+    width: 100%;
+    padding: 1px; /* Disminuye el espaciado interno */
+  }
+
+  label {
+    margin-bottom: 5px;
+    display: block; /* Asegura que el espacio se mantenga en dispositivos móviles */
+  }
+
+
+  /* Estilo para los íconos de redes sociales en dispositivos móviles */
+  .social-icons a {
+    font-size: 24px; /* Aumenta el tamaño de los íconos, ajusta según sea necesario */
+    margin-right: 20px; /* Espacio entre los íconos */
+    display: inline-block; /* Asegura que los márgenes se apliquen correctamente */
+  }
+
+  /* Último ícono sin margen a la derecha */
+  .social-icons a:last-child {
+    margin-right: 0;
+  }
+
+  .social-icons i {
+    font-size: 40px;
   }
 
   footer {
-      text-align: center;
-      padding: 10px;
-  }
-
-  .social-icons a {
-      margin: 5px;
+    padding: 10px;
   }
 }
 
 @media (max-width: 480px) {
   .logo img {
-      max-height: 30px;
+    max-height: 30px;
   }
 
   .instagram-grid {
-      grid-template-columns: 1fr;
+    grid-template-columns: 1fr;
   }
 
   .instagram-section {
-      padding: 20px;
+    padding: 20px;
   }
 
   .ingreso-content {
-    padding: 8px; /* Padding aún más pequeño en pantallas muy pequeñas */
-}
+    padding: 15px;
+    margin: 25px;
+  }
+
+  /* Formularios en pantallas muy pequeñas */
+  .form-group label,
+  #rutForm label {
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+
+  .form-group input[type="text"],
+  .form-group input[type="email"],
+  .form-group select,
+  #rutForm input[type="text"] {
+    font-size: 22px;
+    height: 50px;
+    padding: 5px;
+  }
+
+  input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"],
+    textarea {
+      width: 100%;
+      padding: 10px; /* Tamaño de padding uniforme */
+      margin: 5px 0; /* Espacio arriba y abajo */
+    }
+
+  button {
+    font-size: 22px;
+    margin: 15px 0;
+  }
+
+  input::placeholder {
+    font-size: 20px;
+  }
+
+  .error {
+    font-size: 16px;
+  }
 }
