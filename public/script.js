@@ -1229,12 +1229,6 @@ document.getElementById('nextButton').addEventListener('click', function (e) {
     const nombres = document.getElementById('nombres').value;
     const apellidos = document.getElementById('apellidos').value;
 
-    // Validación de tipo de entrega
-    if (!tipoEntrega) {
-        alert("Por favor seleccione un tipo de entrega.");  // Mensaje si no se selecciona tipo
-        return;
-    }
-
     // Validar campos adicionales (solo si el tipo de entrega es "domicilio")
     if (tipoEntrega === 'Domicilio') {
         document.getElementById('resumenDomicilio').style.display = 'block'; // mostrar domicilio
@@ -1246,11 +1240,6 @@ document.getElementById('nextButton').addEventListener('click', function (e) {
         const region = document.getElementById('region').value;
 
         let valid = true;
-
-        if (!calle || !numero || !comuna || !region) {
-            alert("Por favor complete todos los campos de dirección.");
-            valid = false;
-        }
 
         if (valid) {
             // Formatear la dirección con o sin referencia
@@ -1286,19 +1275,14 @@ document.getElementById('nextButton').addEventListener('click', function (e) {
 // Asegurarnos de que el código se ejecuta cuando el DOM está completamente cargado
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM cargado - Inicializando eventos');
-    
+    const spinner = document.getElementById('spinner'); // Obtener el spinner
     const finalizarButton = document.getElementById('finalizarButton');
-    
-    if (!finalizarButton) {
-        console.error('No se encontró el botón finalizar en el DOM');
-        return;
-    }
-
-    console.log('Botón finalizar encontrado - Agregando evento click');
 
     finalizarButton.addEventListener('click', async function(e) {
         e.preventDefault(); // Prevenir cualquier comportamiento por defecto
-        console.log('Botón finalizar clickeado');
+
+        // Mostrar el spinner al iniciar la petición
+        spinner.style.display = 'inline-block';
 
         try {
             const tipoEntregaElement = document.getElementById('tipoEntrega');
@@ -1375,7 +1359,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('Petición exitosa - Mostrando mensaje de éxito');
                 await Swal.fire({
                     title: '¡Ingreso exitoso!',
-                    text: 'Los datos se han guardado correctamente.',
+                    text: 'Pronto nos pondremos en contacto contigo para entregar tu comprobante de Starken.',
                     icon: 'success',
                     confirmButtonText: 'Aceptar'
                 });
@@ -1385,13 +1369,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 throw new Error(responseData.mensaje || 'Error en el servidor');
             }
         } catch (error) {
-            console.error('Error detallado:', error);
             await Swal.fire({
                 title: 'Error',
-                text: error.message || 'No se pudo enviar los datos. Inténtelo de nuevo.',
+                text: error.message || 'No se pudo enviar los datos. Inténtelo de nuevo o póngase en contacto con nosotros.',
                 icon: 'error',
                 confirmButtonText: 'Aceptar'
             });
+        } finally {
+            // Ocultar el spinner al terminar el proceso
+            spinner.style.display = 'none';
         }
     });
 });
