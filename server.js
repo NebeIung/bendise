@@ -203,8 +203,20 @@ app.get('/descargar-excel', (req, res) => {
 });
 
 // Rutas
-app.get('/', (req, res) => {
+app.get('/inicio', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+app.get('/ingreso', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'ingreso.html'));
+});
+
+app.get('/catalogo', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'catalogo.html'));
+});
+
+app.get('/starkenpro', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'excel.html'));
 });
 
 // Modificar la ruta POST para usar la nueva función de escritura

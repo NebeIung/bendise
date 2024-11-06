@@ -252,19 +252,18 @@ footer {
 }
 
 /* Página de ingreso */
-body.ingreso {
+body {
   background-color: #ebe8ed;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-body.ingreso main {
+body main {
   flex-grow: 1;
-  margin-bottom: 20px;
 }
 
-body.ingreso footer {
+body footer {
   margin-top: auto;
 }
 
@@ -314,7 +313,6 @@ body.ingreso footer {
 #rutForm input[type="text"],
 #rutForm {
     font-weight: bold; /* Hace que la letra sea más gruesa */
-    font-size: medium;
     outline: none; /* Esto elimina el borde de enfoque por defecto */
 }
 
@@ -430,8 +428,8 @@ input.error {
       align-items: center;
   }
 
-  .logo img {
-      max-height: 40px;
+  .logo img{
+    height: 45px;
   }
 
   .hamburger {
@@ -466,7 +464,7 @@ input.error {
   }
 
   .nav-links a {
-      font-size: 18px;
+      font-size: 16px;
       padding: 5px 0;
   }
 
@@ -500,8 +498,8 @@ input.error {
   /* Formularios en móviles */
   .form-group label,
   #rutForm label {
-      font-size: 22px;
-      margin-bottom: 12px;
+      font-size: 16px;
+      margin-bottom: 10px;
       font-weight: bold;
       color: #333;
   }
@@ -511,9 +509,9 @@ input.error {
   .form-group select,
   #rutForm input[type="text"] {
       height: 50px;
-      font-size: 22px;
+      font-size: 16px;
       padding: 5px;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
       border: 2px solid #ddd;
   }
 
@@ -536,19 +534,19 @@ input.error {
     }
 
   input::placeholder {
-      font-size: 18px;
+      font-size: 16px;
   }
 
   /* Botones más grandes */
   button {
-      font-size: 20px;
+      font-size: 16px;
       margin: 15px 0;
       padding: 12px 20px;
   }
 
   /* Espacio entre grupos de formulario */
   .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 10px;
   }
 
   /* Texto de error más visible */
@@ -597,9 +595,6 @@ input.error {
 }
 
 @media (max-width: 480px) {
-  .logo img {
-    max-height: 30px;
-  }
 
   .instagram-grid {
     grid-template-columns: 1fr;
@@ -617,7 +612,7 @@ input.error {
   /* Formularios en pantallas muy pequeñas */
   .form-group label,
   #rutForm label {
-    font-size: 22px;
+    font-size: 16px;
     margin-bottom: 12px;
   }
 
@@ -625,7 +620,7 @@ input.error {
   .form-group input[type="email"],
   .form-group select,
   #rutForm input[type="text"] {
-    font-size: 22px;
+    font-size: 16px;
     height: 50px;
     padding: 5px;
   }
@@ -641,15 +636,15 @@ input.error {
     }
 
   button {
-    font-size: 22px;
-    margin: 15px 0;
+    font-size: 16px;
+    margin: 10px 0;
   }
 
   input::placeholder {
-    font-size: 20px;
+    font-size: 16px;
   }
 
   .error {
-    font-size: 16px;
+    font-size: 14px;
   }
 }
