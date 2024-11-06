@@ -910,6 +910,11 @@ function validateRUT(rut) {
     const body = rut.slice(0, -1);
     const dv = rut.slice(-1).toUpperCase();  // Aceptar "K" y "k"
 
+    // Verificar que el cuerpo del RUT tenga al menos 7 dígitos
+    if (body.length < 7) {
+        return false;
+    }
+
     // Cálculo del dígito verificador
     let suma = 0;
     let multiplo = 2;
@@ -936,7 +941,7 @@ document.getElementById("rutForm").addEventListener("submit", function (event) {
         rutInput.classList.remove("error");
         document.getElementById("extraFieldsSection").style.display = "block";
     } else {
-        rutError.textContent = "Por favor ingrese un RUT válido con dígito verificador.";
+        rutError.textContent = "Por favor ingrese un RUT válido.";
         rutInput.classList.add("error");
     }
 });
