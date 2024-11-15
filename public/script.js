@@ -1214,6 +1214,21 @@ document.getElementById('tipoEntrega').addEventListener('change', function () {
     }
 });
 
+// Función para mostrar y ocultar la viñeta
+function toggleTooltip() {
+    const tooltip = document.getElementById('tooltip');
+    tooltip.style.display = tooltip.style.display === 'none' || tooltip.style.display === '' ? 'block' : 'none';
+}
+
+// Cerrar la viñeta si se hace clic fuera de ella
+document.addEventListener('click', function(event) {
+    const tooltip = document.getElementById('tooltip');
+    const icon = document.querySelector('.help-icon');
+    if (!tooltip.contains(event.target) && event.target !== icon) {
+        tooltip.style.display = 'none';
+    }
+});
+
 // Funcionalidad del botón retroceder
 document.getElementById('backButton').addEventListener('click', function () {
     document.getElementById('deliverySection').style.display = 'none'; // Ocultar entrega

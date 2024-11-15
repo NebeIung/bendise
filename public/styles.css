@@ -1,9 +1,8 @@
 /* General */
 * {
   margin: 0;
-  padding: 0;
   box-sizing: border-box;
-  font-family: "Trebuchet MS", sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 /* Encabezado */
@@ -30,6 +29,7 @@
 
 .nav-links {
   display: flex;
+  font-weight: 550;
   list-style: none;
   justify-content: center;
   flex-grow: 1;
@@ -237,12 +237,13 @@ footer {
 .instagram-handle {
   color: #473243;
   font-size: 18px;
+  font-weight: bold;
 }
 
 .social-icon {
   color: #4c2f4c;
   font-size: 24px;
-  margin: 10px;
+  margin: 5px;
 }
 
 .social-icon:hover {
@@ -272,7 +273,6 @@ body footer {
   background-color: #ffffff;
   padding: 20px;
   border-radius: 8px;
-  font-weight: bold;
 }
 
 #rutSection input[type="text"], #rutSection label{
@@ -362,6 +362,7 @@ button {
   border-radius: 4px;
   cursor: pointer;
   font-weight: bold;
+  font-size: 15px;
   transition: background-color 0.3s;
 }
 
@@ -376,6 +377,41 @@ button:hover {
 
 input.error {
   border: 2px solid red;
+}
+
+/* Estilos del ícono de ayuda */
+.help-icon {
+  width: 20px;
+  height: 20px;
+  margin: 5px;
+  opacity: 0.7;
+  cursor: pointer;
+  vertical-align: middle;
+  position: relative;
+}
+
+/* Estilos para la viñeta */
+.tooltip {
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  border-radius: 5px;
+  width: 275px;
+  display: none;
+  bottom: 585px; /* Posiciona la viñeta encima del ícono */
+  z-index: 1000;
+}
+
+/* Estilo del botón de cierre en la viñeta */
+.tooltip-close {
+  position: absolute;
+  top: 1px;
+  right: 10px;
+  font-size: 25px;
+  cursor: pointer;
+  color: #aaa;
 }
 
 #suggestions {
@@ -534,6 +570,8 @@ input.error {
       padding: 5px;
       margin-bottom: 10px;
       border: 2px solid #ddd;
+      font-variation-settings:
+        "wdth" 100;
   }
 
   .form-group input[type="text"]:focus,
@@ -591,6 +629,12 @@ input.error {
   label {
     margin-bottom: 5px;
     display: block; /* Asegura que el espacio se mantenga en dispositivos móviles */
+  }
+
+  /* Estilos para la viñeta */
+  .tooltip {
+    width: 275px;
+    bottom: 430px; /* Posiciona la viñeta encima del ícono */
   }
 
 

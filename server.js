@@ -207,7 +207,7 @@ app.get('/inicio', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.get('/ingreso', (req, res) => {
+app.get('/inscripcion', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'ingreso.html'));
 });
 

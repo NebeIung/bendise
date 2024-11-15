@@ -3,9 +3,10 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Bendise - Ingreso de Datos</title>
+        <title>Bendise - Inscripción de Datos</title>
+        <link rel="icon" href="icons/favicon.png" type="image/x-icon">
         <link rel="stylesheet" href="styles.css">
-        <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
         
         <!-- Agregar la política de CSP -->
         <meta http-equiv="Content-Security-Policy" content="style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net;">
@@ -15,9 +16,9 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
         
         <!-- Etiquetas Open Graph para la vista previa en redes sociales -->
-        <meta property="og:title" content="Bendise - Ingreso de Datos" />
+        <meta property="og:title" content="Bendise - Inscripción de Datos" />
         <meta property="og:description" content="Ingresa tus datos para realizar el envío vía Starken." />
-        <meta property="og:url" content="https://bendise.cl/ingreso" />
+        <meta property="og:url" content="https://bendise.cl/inscripcion" />
         <meta property="og:image" content="https://bendise.cl/images/IG.png" />
         <meta property="og:type" content="website" />
     </head>
@@ -137,11 +138,22 @@
                 </div>
                 
                 <div id="sucursalFields" class="form-group" style="display: none;">
-                    <label for="sucursal">Sucursal:</label>
-                    <!-- <img src="icons/help.png" alt="help" class="help"> -->
+                    <label for="sucursal" style="position: relative; display: inline-block;">Sucursal:</label>
+                    <img src="icons/help.png" alt="help" class="help-icon" onclick="toggleTooltip()" style="position: relative; display: inline-block;">
                     <input type="text" id="sucursal" placeholder="Ingrese la sucursal" required>
                     <ul id="suggestions" style="list-style: none; padding: 0; margin: 0;"></ul>
                     <div id="error-message" style="color: red; display: none;">Sucursal inválida</div> <!-- Mensaje de error -->
+                </div>
+
+                <!-- Viñeta de ayuda -->
+                <div id="tooltip" class="tooltip">
+                    <span class="tooltip-close" onclick="toggleTooltip()">&times;</span>
+                    <p>¿Cuál es mi sucursal?</p>
+                    <p>
+                        <a href="https://www.starken.cl/sucursales" target="_blank" style="text-decoration: underline; color: blue; font-size: 13px;">
+                            Ingresa al siguiente link para encontrar tu sucursal más cercana
+                        </a>
+                    </p>
                 </div>
 
                 <button class="button-back" id="backButton" type="button">Atrás</button>
