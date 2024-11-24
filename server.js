@@ -189,15 +189,26 @@ app.post('/upload-excel', upload.single('file'), async (req, res) => {
     }
 });
 
-// Ruta para descargar el archivo Excel
 app.get('/descargar-excel', (req, res) => {
     const excelPath = EXCEL_CONFIG.FILE_PATH;
-    res.download(excelPath, 'plantilla-emision-masiva_v2.xlsx', (err) => {
+
+    // Obtener la fecha actual en formato DD/MM/YYYY
+    const now = new Date();
+    const formattedDate = now.toLocaleDateString('es-ES', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+    }).replace(/\//g, '-'); // Reemplazar '/' por '-' para nombres de archivo válidos
+
+    // Crear el nombre dinámico del archivo
+    const fileName = `Emisiones ${formattedDate}.xlsx`;
+
+    res.download(excelPath, fileName, (err) => {
         if (err) {
             console.error('Error al descargar el archivo:', err);
             res.status(500).send('Error al descargar el archivo');
         } else {
-            console.log('Archivo Excel enviado para descarga');
+            console.log(`Archivo Excel enviado para descarga con el nombre: ${fileName}`);
         }
     });
 });
