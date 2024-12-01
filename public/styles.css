@@ -631,13 +631,6 @@ input.error {
     display: block; /* Asegura que el espacio se mantenga en dispositivos móviles */
   }
 
-  /* Estilos para la viñeta */
-  .tooltip {
-    width: 275px;
-    bottom: 430px; /* Posiciona la viñeta encima del ícono */
-  }
-
-
   /* Estilo para los íconos de redes sociales en dispositivos móviles */
   .social-icons a {
     font-size: 24px; /* Aumenta el tamaño de los íconos, ajusta según sea necesario */
