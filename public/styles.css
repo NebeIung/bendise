@@ -242,7 +242,7 @@ footer {
 
 .social-icon {
   color: #4c2f4c;
-  font-size: 24px;
+  font-size: 40px;
   margin: 5px;
 }
 
@@ -379,60 +379,60 @@ input.error {
   border: 2px solid red;
 }
 
+/* Contenedor de la etiqueta y el ícono de ayuda */
+.label-container {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Espacio entre el texto y el ícono */
+}
+
 /* Estilos del ícono de ayuda */
 .help-icon {
   width: 20px;
   height: 20px;
-  margin: 5px;
+  margin: 0;
   opacity: 0.7;
   cursor: pointer;
   vertical-align: middle;
   position: relative;
 }
 
-/* Estilos para la viñeta */
+/* Viñeta posicionada sobre el ícono */
 .tooltip {
   position: absolute;
+  bottom: 150%; /* Ajusta la distancia sobre el ícono */
+  left: 50%; /* Centra la viñeta respecto al ícono */
+  transform: translateX(-50%);
   background-color: #fff;
   border: 1px solid #ddd;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   padding: 10px;
   border-radius: 5px;
   width: 275px;
-  display: none;
-  bottom: 585px; /* Posiciona la viñeta encima del ícono */
   z-index: 1000;
+  display: none;
+}
+
+/* Flecha debajo de la viñeta */
+.tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%; /* Flecha debajo de la viñeta */
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px;
+  border-style: solid;
+  border-color: #fff transparent transparent transparent; /* Flecha blanca */
 }
 
 /* Estilo del botón de cierre en la viñeta */
 .tooltip-close {
   position: absolute;
-  top: 1px;
+  top: 5px;
   right: 10px;
   font-size: 25px;
   cursor: pointer;
   color: #aaa;
-}
-
-#suggestions {
-  position: absolute;
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  z-index: 1000;
-  max-height: 200px;
-  overflow-y: auto;
-  display: none;
-}
-
-#suggestions li {
-  padding: 8px 12px;
-  cursor: pointer;
-}
-
-#suggestions li:hover {
-  background-color: #DECEDF;
-  color: #000;
 }
 
 #sucursal {
