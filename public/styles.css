@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
 /* General */
 * {
   margin: 0;
@@ -230,7 +232,7 @@ div.arrow:hover::before {
 /* Footer */
 footer {
   background-color: #bcb2c4;
-  padding: 20px 0;
+  padding: 2px 0;
   text-align: center;
 }
 
@@ -275,6 +277,10 @@ body footer {
   border-radius: 8px;
 }
 
+#rutForm {
+  padding-bottom: 0px;
+}
+
 #rutSection input[type="text"], #rutSection label{
   font-size: 16px;
 }
@@ -283,6 +289,27 @@ body footer {
   max-width: 800px;
   margin: 2rem auto;
   border-radius: 8px;
+}
+
+/* Estilo general del contenedor */
+#progress-container {
+  align-items: center; /* Centra verticalmente */
+  justify-content: center; /* Centra horizontalmente */
+  gap: 50px; /* Espacio entre los íconos */
+  position: relative;
+  margin-bottom: 10px;
+}
+
+/* Estilo de los íconos */
+#progress-container i {
+  font-size: 1.5rem;
+  color: #bcb2c4;
+  transition: color 0.3s ease, font-size 0.3s ease; /* Animación de color */
+}
+
+/* Ícono activo */
+.progress-container.completed i {
+  color: #4c2f4c; /* Verde */
 }
 
 .ingreso-content {
@@ -437,6 +464,33 @@ input.error {
 
 #sucursal {
   position: relative;
+}
+
+/* Borde invisible por defecto */
+#suggestions {
+  border: 2px solid transparent; /* Borde transparente */
+  max-height: 200px;
+  overflow-y: auto; /* Barra de desplazamiento si es necesario */
+  padding: 5px 0;
+  margin-top: 5px;
+  display: none; /* Inicialmente oculto */
+}
+
+/* Cuando el input está en foco o tiene texto, mostrar el borde de las sugerencias */
+#sucursal:focus + #suggestions,
+#sucursal:not(:placeholder-shown) + #suggestions {
+  display: block; /* Mostrar sugerencias cuando el input está en foco o tiene texto */
+  border: 1px solid #4c2f4c; /* Borde visible */
+}
+
+/* Estilo de las sugerencias */
+#suggestions li {
+  padding: 5px;
+  cursor: pointer;
+}
+
+#suggestions li:hover {
+  background-color: #f0f0f0; /* Resalta al pasar el mouse sobre las sugerencias */
 }
 
 .botones-navegacion {
@@ -698,6 +752,12 @@ input.error {
     margin: 10px 0;
   }
 
+  #progress-container {
+    margin-top: 15px;
+    margin-bottom: 0px;
+  }
+  
+
   input::placeholder {
     font-size: 16px;
   }
@@ -712,8 +772,6 @@ input.error {
 }
 
 /* Botón subir Excel */
-
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 .form-container {
 	display: flex;

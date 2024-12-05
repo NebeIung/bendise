@@ -930,6 +930,8 @@ function validateRUT(rut) {
     return dv === finalDV;  // Devuelve true si el dígito verificador es correcto
 }
 
+let currentStep = 0; // Inicializa el paso actual
+
 document.getElementById("rutForm").addEventListener("submit", function (event) {
     event.preventDefault();
     const rutInput = document.getElementById("rut");
@@ -940,6 +942,22 @@ document.getElementById("rutForm").addEventListener("submit", function (event) {
         rutError.textContent = "";
         rutInput.classList.remove("error");
         document.getElementById("extraFieldsSection").style.display = "block";
+        document.getElementById("progress-container").style.display = "flex";
+        document.getElementsByClassName("fa-solid fa-user")[0].style.color = "#4c2f4c";
+        document.getElementsByClassName("fa-solid fa-user")[0].style.fontSize = "2rem";
+        const steps = document.querySelectorAll(".progress-step");
+        const lines = document.querySelectorAll(".progress-line");
+
+        if (currentStep < steps.length - 1) {
+            // Marca la línea actual como llena
+            lines[currentStep].classList.add("filled");
+
+            // Marca el icono actual como completado
+            steps[currentStep].classList.add("completed");
+
+            // Avanza al siguiente paso
+            currentStep++;
+        }
     } else {
         rutError.textContent = "Por favor ingrese un RUT válido.";
         rutInput.classList.add("error");
@@ -1024,41 +1042,66 @@ const suggestionsList = document.getElementById('suggestions');
 const errorMessage = document.getElementById('error-message');
 const nextButton = document.getElementById('nextButton');
 
+// Evento para mostrar las sugerencias cuando el campo recibe el foco
+sucursalInput.addEventListener('focus', () => {
+    const input = sucursalInput.value.toUpperCase();
+    
+    // Si el input está vacío, mostrar todas las sucursales
+    if (input === '') {
+        updateSuggestions(sucursales); // Muestra todas las sucursales disponibles
+    } else {
+        // Si el input no está vacío, mostrar solo las coincidencias
+        const filteredSuggestions = sucursales.filter(sucursal =>
+            sucursal.toUpperCase().includes(input)
+        );
+        updateSuggestions(filteredSuggestions);
+    }
+});
+
 // Evento para manejar la entrada del usuario
 sucursalInput.addEventListener('input', () => {
     const input = sucursalInput.value.toUpperCase();
-    suggestionsList.innerHTML = '';
-    suggestionsList.style.display = 'none';
-    errorMessage.style.display = 'none'; // Oculta el mensaje de error
+    suggestionsList.innerHTML = ''; // Limpiar las sugerencias previas
+    suggestionsList.style.display = 'none'; // Ocultar la lista si no hay texto
+    errorMessage.style.display = 'none'; // Ocultar mensaje de error
 
     if (input) {
-        const filteredSuggestions = sucursales.filter(sucursal => 
-            sucursal.toUpperCase().includes(input) // Comparar en mayúsculas
+        const filteredSuggestions = sucursales.filter(sucursal =>
+            sucursal.toUpperCase().includes(input)
         );
-
         if (filteredSuggestions.length > 0) {
-            filteredSuggestions.forEach(sucursal => {
-                const li = document.createElement('li');
-                li.textContent = sucursal;
-                li.style.cursor = 'pointer';
-                li.addEventListener('click', () => {
-                    sucursalInput.value = sucursal;
-                    suggestionsList.innerHTML = '';
-                    suggestionsList.style.display = 'none';
-                    errorMessage.style.display = 'none'; // Oculta el mensaje de error al seleccionar una sugerencia
-                    nextButton.disabled = false; // Habilita el botón Siguiente al seleccionar una sugerencia válida
-                });
-                suggestionsList.appendChild(li);
-            });
-            suggestionsList.style.display = 'block';
+            updateSuggestions(filteredSuggestions); // Mostrar sugerencias filtradas
         }
     }
 });
 
+// Función para actualizar las sugerencias en la lista
+function updateSuggestions(filteredSuggestions) {
+    suggestionsList.innerHTML = ''; // Limpiar la lista de sugerencias
+    if (filteredSuggestions.length > 0) {
+        filteredSuggestions.forEach(sucursal => {
+            const li = document.createElement('li');
+            li.textContent = sucursal;
+            li.style.cursor = 'pointer';
+            li.addEventListener('click', () => {
+                sucursalInput.value = sucursal;
+                suggestionsList.innerHTML = ''; // Limpiar la lista después de seleccionar
+                suggestionsList.style.display = 'none'; // Ocultar la lista
+                errorMessage.style.display = 'none'; // Ocultar mensaje de error
+                nextButton.disabled = false; // Habilitar el botón "Siguiente"
+            });
+            suggestionsList.appendChild(li);
+        });
+        suggestionsList.style.display = 'block'; // Mostrar las sugerencias
+    } else {
+        suggestionsList.style.display = 'none'; // Ocultar la lista si no hay coincidencias
+    }
+}
+
 // Evento para ocultar las sugerencias al perder el foco
 sucursalInput.addEventListener('blur', () => {
     setTimeout(() => {
-        suggestionsList.style.display = 'none';
+        suggestionsList.style.display = 'none'; // Ocultar lista después de un pequeño retraso
     }, 100);
 });
 
@@ -1081,6 +1124,20 @@ sucursalInput.addEventListener('blur', () => {
     } else {
         errorMessage.style.display = 'none'; // Oculta el mensaje de error si es válido
         nextButton.disabled = false; // Habilita el botón Siguiente si es válido
+    }
+});
+
+// Validar la sucursal al hacer clic en el botón Siguiente
+nextButton.addEventListener('click', () => {
+    const input = sucursalInput.value.toUpperCase();
+    const isValidSucursal = sucursales.some(sucursal => sucursal.toUpperCase() === input);
+
+    if (!isValidSucursal) {
+        errorMessage.style.display = 'block'; // Muestra el mensaje de error
+    } else {
+        errorMessage.style.display = 'none'; // Oculta el mensaje de error
+        // Aquí puedes añadir la lógica para avanzar al siguiente paso
+        console.log("Sucursal válida, avanzando al siguiente paso.");
     }
 });
 
@@ -1193,6 +1250,10 @@ document.getElementById('extraFieldsForm').addEventListener('submit', function (
     if (valid) {
         document.getElementById('extraFieldsSection').style.display = 'none'; // Ocultar datos personales
         document.getElementById('deliverySection').style.display = 'block'; // Mostrar entrega
+        document.getElementsByClassName("fa-solid fa-user")[0].style.color = "#bcb2c4";
+        document.getElementsByClassName("fa-solid fa-user")[0].style.fontSize = "1.5rem";
+        document.getElementsByClassName("fa-solid fa-house")[0].style.color = "#4c2f4c";
+        document.getElementsByClassName("fa-solid fa-house")[0].style.fontSize = "2rem";
     }
 });
 
@@ -1233,12 +1294,21 @@ document.addEventListener('click', function(event) {
 document.getElementById('backButton').addEventListener('click', function () {
     document.getElementById('deliverySection').style.display = 'none'; // Ocultar entrega
     document.getElementById('extraFieldsSection').style.display = 'block'; // Volver a datos personales
+    document.getElementsByClassName("fa-solid fa-user")[0].style.color = "#4c2f4c";
+    document.getElementsByClassName("fa-solid fa-user")[0].style.fontSize = "2rem";
+    document.getElementsByClassName("fa-solid fa-house")[0].style.color = "#bcb2c4";
+    document.getElementsByClassName("fa-solid fa-house")[0].style.fontSize = "1.5rem";
+
 });
 
 // Funcionalidad del botón retroceder
 document.getElementById('backButton2').addEventListener('click', function () {
     document.getElementById('resumenSection').style.display = 'none'; // Ocultar entrega
     document.getElementById('deliverySection').style.display = 'block'; // Volver a datos personales
+    document.getElementsByClassName("fa-solid fa-house")[0].style.color = "#4c2f4c";
+    document.getElementsByClassName("fa-solid fa-house")[0].style.fontSize = "2rem";
+    document.getElementsByClassName("fa-solid fa-address-card")[0].style.color = "#bcb2c4";
+    document.getElementsByClassName("fa-solid fa-address-card")[0].style.fontSize = "1.5rem";
 });
 
 // Lógica de flujo del formulario de entrega
@@ -1248,6 +1318,10 @@ document.getElementById('nextButton').addEventListener('click', function (e) {
     const tipoEntrega = document.getElementById('tipoEntrega').value;
     const nombres = document.getElementById('nombres').value;
     const apellidos = document.getElementById('apellidos').value;
+    document.getElementsByClassName("fa-solid fa-address-card")[0].style.color = "#4c2f4c";
+    document.getElementsByClassName("fa-solid fa-address-card")[0].style.fontSize = "2rem";
+    document.getElementsByClassName("fa-solid fa-house")[0].style.color = "#bcb2c4";
+    document.getElementsByClassName("fa-solid fa-house")[0].style.fontSize = "1.5rem";
 
     // Validar campos adicionales (solo si el tipo de entrega es "domicilio")
     if (tipoEntrega === 'Domicilio') {
@@ -1258,7 +1332,6 @@ document.getElementById('nextButton').addEventListener('click', function (e) {
         const referencia = document.getElementById('dptoCasa').value;  // Nuevo campo referencia
         const comuna = document.getElementById('comuna').value;
         const region = document.getElementById('region').value;
-
         let valid = true;
 
         if (valid) {
