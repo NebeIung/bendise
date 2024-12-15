@@ -2,7 +2,8 @@ const XlsxPopulate = require('xlsx-populate');
 const path = require('path');
 const express = require('express');
 const multer = require('multer'); // Importar multer
-const fs = require('fs').promises;
+const fs = require('fs'); // Añadir esta línea
+const fsPromises = require('fs').promises;
 const app = express();
 
 // Configuración de rutas y middlewares
@@ -11,7 +12,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Configuraciones constantes
 const EXCEL_CONFIG = {
-    FILE_PATH: path.join(__dirname, 'public', 'plantilla-emision-masiva_v2.xlsx'),
+    FILE_PATH: path.join(__dirname, 'public', 'emisiones.xlsx'),
     FIRST_DATA_ROW: 8,
     COLUMNS: {
         TIPO_SERVICIO: 1,
@@ -52,17 +53,17 @@ async function validarArchivoExcel() {
     try {
         const excelPath = EXCEL_CONFIG.FILE_PATH;
         console.log('Verificando archivo Excel en:', excelPath);
-
-        await fs.access(excelPath);
+    
+        await fs.promises.access(excelPath);  // Usar fs.promises.access
         console.log('Archivo Excel encontrado, verificando estructura...');
-
+    
         const workbook = await XlsxPopulate.fromFileAsync(excelPath);
         const sheet = workbook.sheet(0);
-
+    
         if (!sheet) {
             throw new Error('No se encontró la hoja de trabajo principal');
         }
-
+    
         console.log('Estructura del Excel validada correctamente');
         return true;
     } catch (error) {
@@ -164,7 +165,7 @@ const storage = multer.diskStorage({
         cb(null, path.join(__dirname, 'public')); // Ruta donde se almacenarán los archivos subidos
     },
     filename: (req, file, cb) => {
-        cb(null, file.originalname); // Mantener el nombre original del archivo
+        cb(null, 'plantilla-emision-masiva_v2.xlsx'); // El nombre del archivo subido será 'plantilla-emision-masiva_v2.xlsx'
     }
 });
 
@@ -176,20 +177,35 @@ app.post('/upload-excel', upload.single('file'), async (req, res) => {
         return res.status(400).json({ success: false, message: 'No se subió ningún archivo.' });
     }
 
-    const newFilePath = path.join(__dirname, 'public', 'plantilla-emision-masiva_v2.xlsx');
-    const oldFilePath = req.file.path;
+    const uploadedFilePath = path.join(__dirname, 'public', 'plantilla-emision-masiva_v2.xlsx');
+    const newFilePath = path.join(__dirname, 'public', 'emisiones.xlsx');
+
+    console.log('Datos recibidos:', req.file);
+
+    // Verificar que el archivo subido es de tipo Excel
+    if (req.file.mimetype !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+        return res.status(400).json({ success: false, message: 'El archivo no es un archivo Excel válido.' });
+    }
 
     try {
-        // Copiar el archivo subido y sobrescribir el existente
-        await fsPromises.copyFile(oldFilePath, newFilePath);
-        // Eliminar el archivo temporal subido
-        await fsPromises.unlink(oldFilePath);
+        // Eliminar el archivo emisiones.xlsx si existe
+        if (fs.existsSync(newFilePath)) {
+            await fs.promises.unlink(newFilePath);
+            console.log('Archivo emisiones.xlsx eliminado.');
+        }
+
+        // Renombrar el archivo subido (plantilla-emision-masiva_v2.xlsx) a emisiones.xlsx
+        await fs.promises.rename(uploadedFilePath, newFilePath);
+        console.log('Archivo subido y renombrado como emisiones.xlsx.');
+
+        // Responder con éxito
         res.json({ success: true, message: 'Archivo subido y sobrescrito exitosamente.' });
     } catch (err) {
         console.error('Error al sobrescribir el archivo:', err);
         res.status(500).json({ success: false, message: 'Error al sobrescribir el archivo.' });
     }
 });
+
 
 app.get('/descargar-excel', (req, res) => {
     const excelPath = EXCEL_CONFIG.FILE_PATH;
