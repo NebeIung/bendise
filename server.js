@@ -173,19 +173,21 @@ const upload = multer({ storage: storage });
 // Ruta para subir el archivo Excel
 app.post('/upload-excel', upload.single('file'), async (req, res) => {
     if (!req.file) {
-        return res.status(400).send('No se subió ningún archivo.');
+        return res.status(400).json({ success: false, message: 'No se subió ningún archivo.' });
     }
-    
-    // Reemplazar el archivo existente con el nuevo archivo subido
+
     const newFilePath = path.join(__dirname, 'public', 'plantilla-emision-masiva_v2.xlsx');
-    const oldFilePath = req.file.path; // Ruta del archivo subido
+    const oldFilePath = req.file.path;
 
     try {
-        await fs.rename(oldFilePath, newFilePath); // Mover el archivo subido a la ubicación deseada, sobrescribiendo el existente
-        res.send(`Archivo subido y sobrescrito exitosamente: ${newFilePath}`);
+        // Copiar el archivo subido y sobrescribir el existente
+        await fsPromises.copyFile(oldFilePath, newFilePath);
+        // Eliminar el archivo temporal subido
+        await fsPromises.unlink(oldFilePath);
+        res.json({ success: true, message: 'Archivo subido y sobrescrito exitosamente.' });
     } catch (err) {
         console.error('Error al sobrescribir el archivo:', err);
-        res.status(500).send('Error al sobrescribir el archivo.');
+        res.status(500).json({ success: false, message: 'Error al sobrescribir el archivo.' });
     }
 });
 

@@ -33,7 +33,7 @@
                         <div class="drag-file-area">
                             <span class="material-icons-outlined upload-icon"> file_upload </span>
                             <h3 class="dynamic-message"> Arrastre y suelte aquí </h3>
-                            <label class="label"> o <span class="browse-files"> <input type="file" class="default-file-input" accept=".xlsx,.xls" /> <span class="browse-files-text">Buscar desde dispositivo</span> </span></label>
+                            <label class="label"> o <span class="browse-files"> <input type="file" class="default-file-input" accept=".xlsx,.xls" name="file" /> <span class="browse-files-text">Buscar desde dispositivo</span> </span></label>
                         </div>
                         <span class="cannot-upload-message"> <span class="material-icons-outlined">error</span> Seleccione un archivo<span class="material-icons-outlined cancel-alert-button">cancelar</span> </span>
                         <div class="file-block">
@@ -91,7 +91,10 @@
 
         uploadButton.addEventListener("click", () => {
             let isFileUploaded = fileInput.value;
-            if(isFileUploaded != '') {
+            if (isFileUploaded != '') {
+                const formData = new FormData();
+                formData.append('file', fileInput.files[0]);
+
                 if (fileFlag == 0) {
                     fileFlag = 1;
                     var width = 0;
@@ -99,13 +102,30 @@
                     function frame() {
                         if (width >= 390) {
                             clearInterval(id);
-                            uploadButton.innerHTML = `<span class="material-icons-outlined upload-button-icon"> check_circle </span> Cargado`;
                         } else {
                             width += 5;
                             progressBar.style.width = width + "px";
                         }
                     }
                 }
+
+                fetch('/upload-excel', {
+                    method: 'POST',
+                    body: formData,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Archivo subido correctamente
+                        uploadButton.innerHTML = `<span class="material-icons-outlined upload-button-icon"> check_circle </span> Cargado`;
+                    } else {
+                        throw new Error(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                    cannotUploadMessage.style.cssText = "display: flex; animation: fadeIn linear 1.5s;";
+                });
             } else {
                 cannotUploadMessage.style.cssText = "display: flex; animation: fadeIn linear 1.5s;";
             }
